@@ -37,6 +37,7 @@ export default function ProjectFolder () {
         keyExtractor={item => item.id}
         renderItem={ ({ item }) => (
           <View>
+            {console.log(item.description)}
             <TouchableOpacity>
               <Image source={{uri: item.imageUrl}} style = {styles.ImagesStyle} />
             </TouchableOpacity>
