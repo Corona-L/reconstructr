@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Image, ImageBackground, TouchableOpacity, View, Text, FlatList  } from 'react-native';
-
+import AddStepModal from './AddStepModal';
 
 export default function ProjectFolder () {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModalVisibility = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+
   let counter = 1;
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
-      <TouchableOpacity style={styles.button} >
+      <TouchableOpacity
+        style={styles.button}
+        onPress={toggleModalVisibility} >
         <Text style={styles.buttonText}> Add Step </Text>
       </TouchableOpacity>
+      <AddStepModal isModalVisible={isModalVisible} toggleModalVisibility={toggleModalVisibility} />
       <FlatList
         horizontal={false}
         style={styles.container}

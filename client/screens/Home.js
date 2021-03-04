@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Modal, View, TextInput, Button, Dimensions } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Modal, View, TextInput, Button, Dimensions, Alert } from 'react-native';
 
 export default function Home ({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -12,6 +12,7 @@ export default function Home ({ navigation }) {
   };
 
   const onPress = () => {
+    if (!inputValue.length) return Alert.alert('Please enter a project name');
     // need to add to firebase from here, and get foldername with id back  to be passed into setFolders?
     const randomId = (Math.random() * 10).toString();
     const newFolder = {id: randomId, title: inputValue};
@@ -25,6 +26,7 @@ export default function Home ({ navigation }) {
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
       <FlatList
+        horizontal={false}
         style={styles.container}
         data={folders}
         // eslint-disable-next-line react/no-unescaped-entities
@@ -36,20 +38,24 @@ export default function Home ({ navigation }) {
           </TouchableOpacity>
         }>
       </FlatList>
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#FFDE59' }]} onPress={toggleModalVisibility}>
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: '#FFDE59' }]}
+        onPress={toggleModalVisibility}>
         <Text style={[styles.buttonText, { textAlign: 'center' }]}>+ Add New </Text>
       </TouchableOpacity>
       <Modal
         animationType="slide"
         transparent visible={isModalVisible}
-        presentationStyle="overFullScreen"
-        onDismiss={toggleModalVisibility}>
+        onRequestClose={() => {
+          setModalVisible('false');
+        }}
+        presentationStyle="overFullScreen">
         <View style={styles.viewWrapper}>
           <View style={styles.modalView}>
-            <TextInput placeholder="Enter a project name"
+            <TextInput maxLength={30} placeholder="Enter a project name"
               value={inputValue} style={styles.textInput}
               onChangeText={(value) => setInputValue(value)} />
-            <Button title="Add" onPress={onPress} />
+            <Button title="Add New" onPress={onPress} />
           </View>
         </View>
       </Modal>
@@ -101,7 +107,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     transform: [{ translateX: -(width * 0.4) },
       { translateY: -90 }],
-    height: 180,
+    height: 200,
     width: width * 0.8,
     backgroundColor: '#fff',
     borderRadius: 7,
