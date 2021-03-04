@@ -4,9 +4,17 @@ import AddStepModal from './AddStepModal';
 
 export default function ProjectFolder () {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [steps, setSteps ] = useState(mockFolders);
 
   const toggleModalVisibility = () => {
     setModalVisible(!isModalVisible);
+  };
+
+  const addNewStep = (textInput, url) => {
+    const randomId = (Math.random() * 10).toString();
+    const newStep = {id: randomId, description: textInput, imageUrl: url};
+    setSteps(steps => [newStep, ...steps]);
+    toggleModalVisibility();
   };
 
 
@@ -18,12 +26,12 @@ export default function ProjectFolder () {
         onPress={toggleModalVisibility} >
         <Text style={styles.buttonText}> Add Step </Text>
       </TouchableOpacity>
-      <AddStepModal isModalVisible={isModalVisible} toggleModalVisibility={toggleModalVisibility} />
+      <AddStepModal addNewStep={addNewStep} isModalVisible={isModalVisible} toggleModalVisibility={toggleModalVisibility} />
       <FlatList
         horizontal={false}
         style={styles.container}
         numColumns = {2}
-        data={mockFolders}
+        data={steps}
         // eslint-disable-next-line react/no-unescaped-entities
         ListEmptyComponent={<Text style={styles.text}>Click "Add Step" to get started</Text>}
         keyExtractor={item => item.id}
@@ -82,20 +90,17 @@ const styles = StyleSheet.create({
 const mockFolders = [
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f65',
-    title: 'Honda',
-    timeStamp: 1,
+    description: 'hello',
     imageUrl: 'https://i.ytimg.com/vi/7lhzTBn_TqM/maxresdefault.jpg'
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Project',
-    timeStamp: 2,
+    description: 'try this',
     imageUrl: 'https://i.ytimg.com/vi/BUmbBcVGvWw/maxresdefault.jpg',
   },
   {
     id: '58694a0f-3da1-471f-bd96-141e29d72',
-    title: 'Third Project',
-    timeStamp: 3,
+    description: 'and this ',
     imageUrl: 'https://i.ytimg.com/vi/vLTOx71mL_8/maxresdefault.jpg',
   }
 ];
