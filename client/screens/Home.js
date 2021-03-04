@@ -5,16 +5,28 @@ import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Modal, V
 export default function Home ({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [folders, setFolders] = useState(mockFolders);
 
   const toggleModalVisibility = () => {
     setModalVisible(!isModalVisible);
   };
 
+  const onPress = () => {
+    // need to add to firebase from here, and get foldername with id back  to be passed into setFolders?
+    const randomId = (Math.random() * 10).toString();
+    const newFolder = {id: randomId, title: inputValue};
+    setFolders(folders => [newFolder, ...folders]);
+    setInputValue('');
+    toggleModalVisibility();
+  };
+
+  // create delete function (with swipeable gestures?)
+
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
       <FlatList
         style={styles.container}
-        data={mockFolders}
+        data={folders}
         // eslint-disable-next-line react/no-unescaped-entities
         ListEmptyComponent={<Text style={styles.text}>Click "Add New" to get started</Text>}
         keyExtractor={item => item.id}
@@ -37,8 +49,7 @@ export default function Home ({ navigation }) {
             <TextInput placeholder="Enter a project name"
               value={inputValue} style={styles.textInput}
               onChangeText={(value) => setInputValue(value)} />
-
-            <Button title="Add" onPress={toggleModalVisibility} />
+            <Button title="Add" onPress={onPress} />
           </View>
         </View>
       </Modal>
@@ -108,7 +119,6 @@ const styles = StyleSheet.create({
 
 const mockFolders = [
   {
-    url: 'https://unsplash.com/photos/SvMlXH_eW6o',
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f65',
     title: 'Honda',
   },
@@ -127,17 +137,5 @@ const mockFolders = [
   {
     id: '3ac68afc-c605-d3-a4f8-fbd91aa97f63',
     title: 'Some Project',
-  },
-  {
-    id: '3ac68afc-c6058d3-a4f8-fbd91aa97f63',
-    title: 'Sixth Project',
-  },
-  {
-    id: '3ac68afc-c6058d3-a4f8-fb91aa97f63',
-    title: 'Seventh Project',
-  },
-  {
-    id: '3ac68afc5-48d3-a4f8-fbd91aa97f63',
-    title: 'Eigth Project',
-  },
+  }
 ];
