@@ -36,7 +36,7 @@ export default function Home ({ navigation }) {
           </TouchableOpacity>
         }>
       </FlatList>
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#3C53B0' }]} onPress={toggleModalVisibility}>
+      <TouchableOpacity style={[styles.button, { backgroundColor: '#FFDE59' }]} onPress={toggleModalVisibility}>
         <Text style={[styles.buttonText, { textAlign: 'center' }]}>+ Add New </Text>
       </TouchableOpacity>
       <Modal

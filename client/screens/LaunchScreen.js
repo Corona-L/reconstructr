@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     width: 180,
     borderRadius: 15,
     marginBottom: 20,
-    backgroundColor: '#3C53B0',
+    backgroundColor: '#FFDE59',
   },
   buttonText: {
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
   }
 });
 
