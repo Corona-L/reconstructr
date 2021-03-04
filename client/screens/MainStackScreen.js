@@ -18,7 +18,7 @@ export default function MainStackScreen () {
     <MainStack.Navigator>
       <MainStack.Screen name="Welcome" component={LaunchScreen} options={options} />
       <MainStack.Screen name="Home" component={Home} options={{...options, title: 'My Projects'}} />
-      <MainStack.Screen name="ProjectFolder" component={ProjectFolder} options={{...options, title: 'Honda'}} />
+      <MainStack.Screen name="ProjectFolder" component={ProjectFolder} options={{...options, title: 'Overview'}} />
     </MainStack.Navigator>
   );
 }
