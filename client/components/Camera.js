@@ -6,7 +6,7 @@ import { Camera } from 'expo-camera';
 export default function UseCamera ({addNewStep}) {
   const cameraRef = useRef();
   const [hasPermission, setHasPermission] = useState(null);
-  const [isPreview, setIsPreview] = useState(false);
+  const [, setIsPreview] = useState(false);
   const [textInput, setTextInput] = useState('');
   const [sourceUrl, setSourceUrl] = useState(null);
 
@@ -45,8 +45,7 @@ export default function UseCamera ({addNewStep}) {
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={Camera.Constants.Type.back} ref = {cameraRef} >
-      </Camera>
+      <Camera style={styles.camera} type={Camera.Constants.Type.back} ref = {cameraRef} />
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <TouchableOpacity
           style={styles.button}
