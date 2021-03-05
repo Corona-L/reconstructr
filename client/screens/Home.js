@@ -1,12 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Modal, View, TextInput, Button, Dimensions, Alert } from 'react-native';
+import { GlobalContext } from '../store/GlobalState';
 
 export default function Home ({ navigation }) {
+  // mock data
+  const { projects } = useContext(GlobalContext);
+  // reducer function to change global state
+  const { addNewFolder } = useContext(GlobalContext);
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [folders, setFolders] = useState(mockFolders);
-
 
   const toggleModalVisibility = () => {
     setModalVisible(!isModalVisible);
@@ -14,22 +18,20 @@ export default function Home ({ navigation }) {
 
   const addFolder = () => {
     if (!inputValue.length) return Alert.alert('Please enter a project name');
-    // need to add to firebase from here, and get foldername with id back  to be passed into setFolders?
-    const ID = (+folders[0].id+1).toString();
-    const newFolder = {id: ID, title: inputValue, steps: []};
-    setFolders(folders => [newFolder, ...folders]);
+    const ID = (+projects[0].id+1).toString();
+    addNewFolder(inputValue, ID);
     setInputValue('');
     toggleModalVisibility();
   };
 
-  // create delete function (with swipeable gestures?)
+
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
       <FlatList
         horizontal={false}
         style={styles.container}
-        data={folders}
+        data={projects}
         // eslint-disable-next-line react/no-unescaped-entities
         ListEmptyComponent={<Text style={styles.text}>Click "Add New" to get started</Text>}
         keyExtractor={item => item.id}
@@ -123,49 +125,3 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 });
-
-
-const mockFolders = [
-  {
-    id: '2',
-    title: 'Honda',
-    steps: [
-      {
-        step: 1,
-        description: 'Bacon ipsum dolor amet andouille kielbasa cupim turducken hamburger, picanha t-bone burgdoggen bresaola spare ribs pork belly corned beef pork loin.',
-        imageUrl: 'https://i.ytimg.com/vi/7lhzTBn_TqM/maxresdefault.jpg'
-      },
-      {
-        step: 2,
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        imageUrl: 'https://i.ytimg.com/vi/BUmbBcVGvWw/maxresdefault.jpg'
-      },
-      {
-        step: 3,
-        description: 'Lorem ipsum dolor sit amet, labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
-        imageUrl: 'https://i.ytimg.com/vi/vLTOx71mL_8/maxresdefault.jpg'
-      }
-    ]
-  },
-  {
-    id: '1',
-    title: 'Changing Car Tires',
-    steps: [
-      {
-        step: 1,
-        description: 'Bacon ipsum dolor amet andouille kielbasa cupim turducken hamburger, picanha t-bone burgdoggen bresaola spare ribs pork belly corned beef pork loin.',
-        imageUrl: 'https://i.ytimg.com/vi/7lhzTBn_TqM/maxresdefault.jpg'
-      },
-      {
-        step: 2,
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        imageUrl: 'https://i.ytimg.com/vi/BUmbBcVGvWw/maxresdefault.jpg'
-      },
-      {
-        step: 3,
-        description: 'Lorem ipsum dolor sit amet, labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
-        imageUrl: 'https://i.ytimg.com/vi/vLTOx71mL_8/maxresdefault.jpg'
-      }
-    ]
-  },
-];
