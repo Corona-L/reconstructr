@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-// import { StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './Home';
 import ProjectFolder from './ProjectFolder';
 import LaunchScreen from './LaunchScreen';
+import StepDetail from './StepDetail';
 
 const MainStack = createStackNavigator();
 const options = {
@@ -19,6 +19,7 @@ export default function MainStackScreen () {
       <MainStack.Screen name="Welcome" component={LaunchScreen} options={options} />
       <MainStack.Screen name="Home" component={Home} options={{...options, title: 'My Projects'}} />
       <MainStack.Screen name="ProjectFolder" component={ProjectFolder} options={{...options, title: 'Overview'}} />
+      <MainStack.Screen name="StepDetail" component={StepDetail} options={{...options, title: 'Details'}} />
     </MainStack.Navigator>
   );
 }

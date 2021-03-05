@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#041E34',
     flex: 1,
     alignItems: 'center',
-    paddingTop: 30,
-    paddingBottom: 100,
+    paddingTop: 20,
+    paddingBottom: 80,
     top: '2%'
   },
   text: {

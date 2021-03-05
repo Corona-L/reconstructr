@@ -125,23 +125,23 @@ const styles = StyleSheet.create({
 
 const mockFolders = [
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f65',
+    id: '1',
     title: 'Honda',
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    id: '2',
     title: 'Second Project',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-141e29d72',
+    id: '3',
     title: 'Third Project',
   },
   {
-    id: '3ac68afc-c605-48da4f8-fbd91aa97f63',
+    id: '4',
     title: 'Fourth Project',
   },
   {
-    id: '3ac68afc-c605-d3-a4f8-fbd91aa97f63',
+    id: '5',
     title: 'Some Project',
   }
 ];
