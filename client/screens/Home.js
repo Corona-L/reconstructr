@@ -7,15 +7,16 @@ export default function Home ({ navigation }) {
   const [inputValue, setInputValue] = useState('');
   const [folders, setFolders] = useState(mockFolders);
 
+
   const toggleModalVisibility = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const onPress = () => {
+  const addFolder = () => {
     if (!inputValue.length) return Alert.alert('Please enter a project name');
     // need to add to firebase from here, and get foldername with id back  to be passed into setFolders?
-    const randomId = (Math.random() * 10).toString();
-    const newFolder = {id: randomId, title: inputValue};
+    const ID = (+folders[0].id+1).toString();
+    const newFolder = {id: ID, title: inputValue, steps: []};
     setFolders(folders => [newFolder, ...folders]);
     setInputValue('');
     toggleModalVisibility();
@@ -33,7 +34,7 @@ export default function Home ({ navigation }) {
         ListEmptyComponent={<Text style={styles.text}>Click "Add New" to get started</Text>}
         keyExtractor={item => item.id}
         renderItem={({ item }) =>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProjectFolder')}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProjectFolder', {item})}>
             <Text style={[styles.buttonText]}>{item.title}</Text>
           </TouchableOpacity>
         }>
@@ -55,7 +56,7 @@ export default function Home ({ navigation }) {
             <TextInput maxLength={30} placeholder="Enter a project name"
               value={inputValue} style={styles.textInput}
               onChangeText={(value) => setInputValue(value)} />
-            <Button title="Add New" onPress={onPress} />
+            <Button title="Add New" onPress={addFolder} />
           </View>
         </View>
       </Modal>
@@ -123,25 +124,48 @@ const styles = StyleSheet.create({
   },
 });
 
+
 const mockFolders = [
   {
-    id: '1',
-    title: 'Honda',
-  },
-  {
     id: '2',
-    title: 'Second Project',
+    title: 'Honda',
+    steps: [
+      {
+        step: 1,
+        description: 'Bacon ipsum dolor amet andouille kielbasa cupim turducken hamburger, picanha t-bone burgdoggen bresaola spare ribs pork belly corned beef pork loin.',
+        imageUrl: 'https://i.ytimg.com/vi/7lhzTBn_TqM/maxresdefault.jpg'
+      },
+      {
+        step: 2,
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        imageUrl: 'https://i.ytimg.com/vi/BUmbBcVGvWw/maxresdefault.jpg'
+      },
+      {
+        step: 3,
+        description: 'Lorem ipsum dolor sit amet, labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
+        imageUrl: 'https://i.ytimg.com/vi/vLTOx71mL_8/maxresdefault.jpg'
+      }
+    ]
   },
   {
-    id: '3',
-    title: 'Third Project',
+    id: '1',
+    title: 'Changing Car Tires',
+    steps: [
+      {
+        step: 1,
+        description: 'Bacon ipsum dolor amet andouille kielbasa cupim turducken hamburger, picanha t-bone burgdoggen bresaola spare ribs pork belly corned beef pork loin.',
+        imageUrl: 'https://i.ytimg.com/vi/7lhzTBn_TqM/maxresdefault.jpg'
+      },
+      {
+        step: 2,
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        imageUrl: 'https://i.ytimg.com/vi/BUmbBcVGvWw/maxresdefault.jpg'
+      },
+      {
+        step: 3,
+        description: 'Lorem ipsum dolor sit amet, labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
+        imageUrl: 'https://i.ytimg.com/vi/vLTOx71mL_8/maxresdefault.jpg'
+      }
+    ]
   },
-  {
-    id: '4',
-    title: 'Fourth Project',
-  },
-  {
-    id: '5',
-    title: 'Some Project',
-  }
 ];
