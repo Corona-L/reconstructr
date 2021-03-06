@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
+import Recorder from './Recorder';
 import { GlobalContext } from '../store/GlobalState';
+import { ModalContext } from '../store/ModalState';
 
 export default function UseCamera ({id}) {
   // reducer function to change global state
   const { addNewStep } = useContext(GlobalContext);
+  const { toggleModal } = useContext(ModalContext);
 
   const cameraRef = useRef();
   const [hasPermission, setHasPermission] = useState(null);
@@ -17,7 +20,8 @@ export default function UseCamera ({id}) {
     if (!sourceUrl) return Alert.alert('Please add a picture');
     addNewStep(textInput, sourceUrl, id);
     setTextInput('');
-    toggleModalVisibility();
+    setSourceUrl(null);
+    toggleModal();
   };
 
   useEffect(() => {
@@ -35,6 +39,7 @@ export default function UseCamera ({id}) {
   }
 
   const takePicture = async () => {
+    if (sourceUrl) return Alert.alert('Please delete current picture before taking another one');
     if (cameraRef.current) {
       const options = { quality: 0.5, base64: true, skipProcessing: true };
       const data = await cameraRef.current.takePictureAsync(options);
@@ -60,10 +65,9 @@ export default function UseCamera ({id}) {
         <TouchableOpacity
           style={styles.button}
           onPress={takePicture}>
-          <Text style={styles.buttonText}>
-            Take picture
-          </Text>
+          <Text style={styles.buttonText}>Take picture</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.button}
           onPress={cancelPreview}>
@@ -72,14 +76,14 @@ export default function UseCamera ({id}) {
           </Text>
         </TouchableOpacity>
       </View>
+
+
       <View>
         <TextInput multiline={true} maxLength={400} placeholder="Add a Description"
           value={textInput} style={styles.textInput}
-          onChangeText={(value) => setTextInput(value)} />
+          onChangeText={(value) => {setTextInput(value);}} />
         <TouchableOpacity style={styles.SubmitButton} onPress={addStep} >
-          <Text style={styles.buttonText}>
-            Add new
-          </Text>
+          <Text style={styles.buttonText}>Add new</Text>
         </TouchableOpacity>
       </View>
     </View>

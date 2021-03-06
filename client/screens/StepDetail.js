@@ -35,6 +35,7 @@ export default function StepDetailModal ({ route }) {
         </Modal>
         <View style={styles.notesView} >
           <Text style={[styles.notesText, { fontWeight: 'bold', fontSize: 20 }]}>Notes</Text>
+          {!route.params.item.audioUri ? <Text style={[styles.notesText, {paddingTop: 10, marginLeft: '34%', fontStyle: 'italic'}]}>Add a voice note</Text> : <View/>}
         </View>
         {!route.params.item.audioUri ? <Recorder /> : <Playback />}
         <View style={styles.descriptionView} >

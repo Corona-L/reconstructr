@@ -38,9 +38,9 @@ export default function Playback () {
     <View style={styles.controls}>
       <TouchableOpacity style={styles.control} onPress={toggleSound}>
         {isPlaying ? (
-          <Ionicons name='ios-pause' size={48} color='#444' />
+          <Ionicons name='ios-pause' size={40} color='#444' />
         ) : (
-          <Ionicons name='ios-play-circle' size={48} color='#444' />
+          <Ionicons name='ios-play-circle' size={40} color='#444' />
         )}
       </TouchableOpacity>
     </View>
