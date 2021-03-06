@@ -1,30 +1,31 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import {ModalContext} from '../store/ModalState';
 
 export default function StepDetailModal ({ route }) {
-  const [isModalVisible, setModalVisible] = useState(false);
+  const { modal } = useContext(ModalContext);
+  const { toggleModal } = useContext(ModalContext);
+
+
   const emptyDescriptionMessage = <Text style={styles.notesText}>No description provided. You can add a new desription any time</Text>;
   const descriptionMessage = <Text style={styles.notesText}>{route.params.item.description}</Text>;
 
-  const toggleModalVisibility = () => {
-    setModalVisible(!isModalVisible);
-  };
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
-      <Text style={styles.text}>Step 1</Text>
+      <Text style={styles.text}>Step {route.params.item.step}</Text>
       <View style={styles.view} />
       <ScrollView>
-        <TouchableOpacity onPress={toggleModalVisibility}>
+        <TouchableOpacity onPress={toggleModal}>
           <Image
             style={styles.imageStyle}
             source={{ uri: route.params.item.imageUrl }}/>
         </TouchableOpacity>
         <Modal
-          visible={isModalVisible}
+          visible={modal}
           transparent={false}
-          onRequestClose={toggleModalVisibility}>
-          <TouchableOpacity onPress={toggleModalVisibility}>
+          onRequestClose={toggleModal}>
+          <TouchableOpacity onPress={toggleModal}>
             <Image
               style={styles.modalImage}
               source={{ uri: route.params.item.imageUrl }} />

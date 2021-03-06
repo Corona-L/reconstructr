@@ -8,6 +8,16 @@ import {
   Text
 } from 'react-native';
 
+export default function LaunchScreen ({navigation}) {
+  return (
+    <View style={styles.container}>
+      <Image source={require('../assets/reconstructr-logo-static.png')} style={styles.image} />
+      <TouchableOpacity style={styles.button} onPress={() => navigation.reset({index:0, routes:[{name:'Home'}]})}>
+        <Text style={styles.buttonText}> Create </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -35,14 +45,3 @@ const styles = StyleSheet.create({
     color: 'black',
   }
 });
-
-export default function LaunchScreen ({navigation}) {
-  return (
-    <View style={styles.container}>
-      <Image source={require('../assets/reconstructr-logo-static.png')} style={styles.image} />
-      <TouchableOpacity style={styles.button} onPress={() => navigation.reset({index:0, routes:[{name:'Home'}]})}>
-        <Text style={styles.buttonText}> Create </Text>
-      </TouchableOpacity>
-    </View>
-  );
-}

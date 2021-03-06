@@ -1,8 +1,8 @@
-
 import React, { useState, useContext } from 'react';
-import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Modal, View, TextInput, Button, Dimensions, Alert } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Alert } from 'react-native';
 import { GlobalContext } from '../store/GlobalState';
 import {ModalContext} from '../store/ModalState';
+import AddFolderModal from './AddFolderModal';
 
 export default function Home ({ navigation }) {
   // mock data
@@ -11,7 +11,6 @@ export default function Home ({ navigation }) {
   const { addNewFolder } = useContext(GlobalContext);
 
   // global modal function
-  const { modal } = useContext(ModalContext);
   const {toggleModal} = useContext(ModalContext);
 
   const [inputValue, setInputValue] = useState('');
@@ -26,6 +25,7 @@ export default function Home ({ navigation }) {
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
+
       <FlatList
         horizontal={false}
         style={styles.container}
@@ -39,32 +39,19 @@ export default function Home ({ navigation }) {
           </TouchableOpacity>
         }>
       </FlatList>
+
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#FFDE59' }]}
         onPress={toggleModal}>
         <Text style={[styles.buttonText, { textAlign: 'center' }]}>+ Add New </Text>
       </TouchableOpacity>
-      <Modal
-        animationType="slide"
-        transparent visible={modal}
-        onRequestClose={() => {
-          toggleModal();
-        }}
-        presentationStyle="overFullScreen">
-        <View style={styles.viewWrapper}>
-          <View style={styles.modalView}>
-            <TextInput maxLength={30} placeholder="Enter a project name"
-              value={inputValue} style={styles.textInput}
-              onChangeText={(value) => setInputValue(value)} />
-            <Button title="Add New" onPress={addFolder} />
-          </View>
-        </View>
-      </Modal>
+
+      <AddFolderModal value={inputValue} setInputValue={setInputValue} addFolder={addFolder}/>
     </ImageBackground>
   );
 }
 
-const { width } = Dimensions.get('window');
+// const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     marginTop: 15,
@@ -92,34 +79,5 @@ const styles = StyleSheet.create({
   buttonText: {
     fontWeight: 'bold',
     color: '#342F1E',
-  },
-  viewWrapper: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
-  },
-  modalView: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    elevation: 5,
-    transform: [{ translateX: -(width * 0.4) },
-      { translateY: -90 }],
-    height: 200,
-    width: width * 0.8,
-    backgroundColor: '#fff',
-    borderRadius: 7,
-  },
-  textInput: {
-    width: '80%',
-    borderRadius: 5,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderColor: 'rgba(0, 0, 0, 0.2)',
-    borderWidth: 1,
-    marginBottom: 8,
-  },
+  }
 });

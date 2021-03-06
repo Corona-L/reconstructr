@@ -7,28 +7,13 @@ export default (state, action) => {
     return [newFolder, ...state];
   }
   case 'addStep': {
-
-    return console.log(action.payload.userInput);
+    const ID = action.payload.ID;
+    const match = state.find((folder) => folder.id === ID);
+    const rest = state.filter((folder) => folder.id !== ID);
+    const step = match.steps.length === 0 ? 1 : match.steps[0].step+1;
+    const newItem = {step, description: action.payload.userInput, imageUrl: action.payload.url};
+    match.steps.unshift(newItem);
+    return [...rest, match];
   }
   }
 };
-
-
-// const addNewStepFunc = ((text, url, ID) => {
-//   let copyFolders = [...folders];
-//   const match = copyFolders.filter((folder) => folder.id === ID);
-//   const STEP = match.steps.length === 0 ? 1 : match.steps[0].step+1;
-//   const updatedMatch = {...match, step: STEP, description: text, imageUrl: url};
-//   // toggleModalVisibility();
-//   setFolders(...copyFolders, updatedMatch);
-// });
-
-// working addnewStep for state only within projectfolder
-// const addNewStep = (textInput, url) => {
-
-//   const STEP = steps.length === 0 ? 1 : steps[0].step+1;
-//   const newStep = {step: STEP, description: textInput, imageUrl: url};
-//   // const newStep = {id: randomId, description: textInput, imageUrl: url};
-//   setSteps(steps => [newStep, ...steps]);
-//   toggleModalVisibility();
-// };

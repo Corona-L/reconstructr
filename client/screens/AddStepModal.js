@@ -3,8 +3,6 @@ import { View, StyleSheet, Modal, Text } from 'react-native';
 import UseCamera from '../components/Camera';
 import {ModalContext} from '../store/ModalState';
 
-// TODO: make it reusable
-
 export default function AddStepModal ({ id }) {
   const { modal } = useContext(ModalContext);
   const {toggleModal} = useContext(ModalContext);
