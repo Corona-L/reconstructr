@@ -6,7 +6,8 @@ export default [
       {
         step: 3,
         description: 'Bacon ipsum dolor amet andouille kielbasa cupim turducken hamburger, picanha t-bone burgdoggen bresaola spare ribs pork belly corned beef pork loin.',
-        imageUrl: 'https://i.ytimg.com/vi/7lhzTBn_TqM/maxresdefault.jpg'
+        imageUrl: 'https://i.ytimg.com/vi/7lhzTBn_TqM/maxresdefault.jpg',
+        audioUri: 'hello'
       },
       {
         step: 2,

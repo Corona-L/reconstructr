@@ -41,9 +41,9 @@ export default function Home ({ navigation }) {
       </FlatList>
 
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: '#FFDE59' }]}
+        style={[styles.button, { backgroundColor: '#FFDE59', height: 60 }]}
         onPress={toggleModal}>
-        <Text style={[styles.buttonText, { textAlign: 'center' }]}>+ Add New </Text>
+        <Text style={[styles.buttonText, { textAlign: 'center'}]}>+ Add New </Text>
       </TouchableOpacity>
 
       <AddFolderModal value={inputValue} setInputValue={setInputValue} addFolder={addFolder}/>
