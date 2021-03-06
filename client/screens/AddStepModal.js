@@ -1,18 +1,20 @@
 import React, {useContext} from 'react';
 import { View, StyleSheet, Modal, Text } from 'react-native';
 import UseCamera from '../components/Camera';
-// import { GlobalContext } from '../store/GlobalState';
+import {ModalContext} from '../store/ModalState';
 
 // TODO: make it reusable
 
-export default function AddStepModal ({ isModalVisible, toggleModalVisibility, id }) {
+export default function AddStepModal ({ id }) {
+  const { modal } = useContext(ModalContext);
+  const {toggleModal} = useContext(ModalContext);
 
   return (
     <Modal
       animationType="slide"
-      transparent visible={isModalVisible}
+      transparent visible={modal}
       onRequestClose={() => {
-        toggleModalVisibility();
+        toggleModal();
       }}
       presentationStyle="overFullScreen">
       <View style={styles.modal}>

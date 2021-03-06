@@ -10,9 +10,6 @@ export default (state, action) => {
 
     return console.log(action.payload.userInput);
   }
-  // case 'toggleModal': {
-  //   return {on: !state.on};
-  // }
   }
 };
 

@@ -1,29 +1,23 @@
-import React, { useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import { StyleSheet, Image, ImageBackground, TouchableOpacity, View, Text, FlatList, Dimensions  } from 'react-native';
 import AddStepModal from './AddStepModal';
-// import {GlobalContext} from '../store/GlobalState';
+import {ModalContext} from '../store/ModalState';
 
 export default function ProjectFolder ({ navigation, route }) {
-  const [isModalVisible, setModalVisible] = useState(false);
   const id = route.params.item.id;
-  // trying to add global toggle function
-  // const {toggleModal} = useContext(GlobalContext);
-  // const [steps, setSteps ] = useState(route.params.item.steps);
 
-  const toggleModalVisibility = () => {
-    setModalVisible(!isModalVisible);
-  };
-
+  // global toggle function
+  const {toggleModal} = useContext(ModalContext);
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
       <Text style={styles.title}>{route.params.item.title}</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={toggleModalVisibility} >
+        onPress={toggleModal} >
         <Text style={styles.buttonText}> Add Step </Text>
       </TouchableOpacity>
-      <AddStepModal id={id} isModalVisible={isModalVisible} toggleModalVisibility={toggleModalVisibility} />
+      <AddStepModal id={id}/>
       <FlatList
         horizontal={false}
         style={styles.container}

@@ -2,6 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Modal, View, TextInput, Button, Dimensions, Alert } from 'react-native';
 import { GlobalContext } from '../store/GlobalState';
+import {ModalContext} from '../store/ModalState';
 
 export default function Home ({ navigation }) {
   // mock data
@@ -9,21 +10,19 @@ export default function Home ({ navigation }) {
   // reducer function to change global state
   const { addNewFolder } = useContext(GlobalContext);
 
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  // global modal function
+  const { modal } = useContext(ModalContext);
+  const {toggleModal} = useContext(ModalContext);
 
-  const toggleModalVisibility = () => {
-    setModalVisible(!isModalVisible);
-  };
+  const [inputValue, setInputValue] = useState('');
 
   const addFolder = () => {
     if (!inputValue.length) return Alert.alert('Please enter a project name');
     const ID = (+projects[0].id+1).toString();
     addNewFolder(inputValue, ID);
     setInputValue('');
-    toggleModalVisibility(); };
-
-
+    toggleModal();
+  };
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
@@ -42,14 +41,14 @@ export default function Home ({ navigation }) {
       </FlatList>
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#FFDE59' }]}
-        onPress={toggleModalVisibility}>
+        onPress={toggleModal}>
         <Text style={[styles.buttonText, { textAlign: 'center' }]}>+ Add New </Text>
       </TouchableOpacity>
       <Modal
         animationType="slide"
-        transparent visible={isModalVisible}
+        transparent visible={modal}
         onRequestClose={() => {
-          setModalVisible('false');
+          toggleModal();
         }}
         presentationStyle="overFullScreen">
         <View style={styles.viewWrapper}>

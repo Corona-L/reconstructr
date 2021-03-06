@@ -5,11 +5,10 @@ import data from './mockdata';
 
 // Initial state
 const initialState = data;
-const on = false;
 
 // Create context
 export const GlobalContext = createContext(initialState);
-export const modalVisibility = createContext(on);
+
 
 // Provider component
 export const GlobalProvider = ({ children }) => {
@@ -30,18 +29,11 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
-  // trying to add global toggle function
-  // function toggleModal () {
-  //   dispatch({
-  //     type: 'toggleModal'
-  //   });
-  // }
 
   return (<GlobalContext.Provider value={{
     projects: state,
     addNewFolder,
     addNewStep,
-    // toggleModal
   }}>
     {children}
   </GlobalContext.Provider>);
