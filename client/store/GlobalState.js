@@ -29,11 +29,19 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  function saveRecording (uri, id) {
+    dispatch({
+      type: 'addRecording',
+      payload: {uri, id}
+    });
+  }
+
 
   return (<GlobalContext.Provider value={{
     projects: state,
     addNewFolder,
     addNewStep,
+    saveRecording
   }}>
     {children}
   </GlobalContext.Provider>);

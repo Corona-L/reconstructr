@@ -15,5 +15,9 @@ export default (state, action) => {
     match.steps.unshift(newItem);
     return [...rest, match];
   }
+  case 'addRecording': {
+    return console.log(action.payload.uri);
+  }
   }
 };
+
