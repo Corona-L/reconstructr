@@ -1,14 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
-
 import { Camera } from 'expo-camera';
+import { GlobalContext } from '../store/GlobalState';
 
-export default function UseCamera ({addNewStep}) {
+export default function UseCamera ({id}) {
+  // reducer function to change global state
+  const { addNewStep } = useContext(GlobalContext);
+
   const cameraRef = useRef();
   const [hasPermission, setHasPermission] = useState(null);
   const [, setIsPreview] = useState(false);
   const [textInput, setTextInput] = useState('');
   const [sourceUrl, setSourceUrl] = useState(null);
+
+  const addStep = () => {
+    if (!sourceUrl) return Alert.alert('Please add a picture');
+    addNewStep(textInput, sourceUrl, id);
+    setTextInput('');
+    toggleModalVisibility();
+  };
 
   useEffect(() => {
     (async () => {
@@ -66,10 +76,7 @@ export default function UseCamera ({addNewStep}) {
         <TextInput multiline={true} maxLength={400} placeholder="Add a Description"
           value={textInput} style={styles.textInput}
           onChangeText={(value) => setTextInput(value)} />
-        <TouchableOpacity style={styles.SubmitButton} onPress={() => {
-          if (!sourceUrl) return Alert.alert('Please add a picture');
-          addNewStep(textInput, sourceUrl);
-        }} >
+        <TouchableOpacity style={styles.SubmitButton} onPress={addStep} >
           <Text style={styles.buttonText}>
             Add new
           </Text>

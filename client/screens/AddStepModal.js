@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, StyleSheet, Modal, Text } from 'react-native';
 import UseCamera from '../components/Camera';
+// import { GlobalContext } from '../store/GlobalState';
 
 // TODO: make it reusable
 
-export default function AddStepModal ({ isModalVisible, toggleModalVisibility, addNewStep }) {
+export default function AddStepModal ({ isModalVisible, toggleModalVisibility, id }) {
 
   return (
     <Modal
@@ -17,7 +18,7 @@ export default function AddStepModal ({ isModalVisible, toggleModalVisibility, a
       <View style={styles.modal}>
         <View>
           <Text style={styles.text}>Add a Step</Text>
-          <UseCamera addNewStep={addNewStep}></UseCamera>
+          <UseCamera id={id}></UseCamera>
         </View>
       </View>
     </Modal>

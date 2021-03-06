@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import { StyleSheet, Image, ImageBackground, TouchableOpacity, View, Text, FlatList, Dimensions  } from 'react-native';
 import AddStepModal from './AddStepModal';
+// import {GlobalContext} from '../store/GlobalState';
 
 export default function ProjectFolder ({ navigation, route }) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [steps, setSteps ] = useState(route.params.item.steps);
+  const id = route.params.item.id;
+  // trying to add global toggle function
+  // const {toggleModal} = useContext(GlobalContext);
+  // const [steps, setSteps ] = useState(route.params.item.steps);
 
   const toggleModalVisibility = () => {
     setModalVisible(!isModalVisible);
   };
-
-  const addNewStep = (textInput, url) => {
-
-    const STEP = steps.length === 0 ? 1 : steps[0].step+1;
-    const newStep = {step: STEP, description: textInput, imageUrl: url};
-    // const newStep = {id: randomId, description: textInput, imageUrl: url};
-    setSteps(steps => [newStep, ...steps]);
-    toggleModalVisibility();
-  };
-
 
 
   return (
@@ -29,12 +23,12 @@ export default function ProjectFolder ({ navigation, route }) {
         onPress={toggleModalVisibility} >
         <Text style={styles.buttonText}> Add Step </Text>
       </TouchableOpacity>
-      <AddStepModal addNewStep={addNewStep} isModalVisible={isModalVisible} toggleModalVisibility={toggleModalVisibility} />
+      <AddStepModal id={id} isModalVisible={isModalVisible} toggleModalVisibility={toggleModalVisibility} />
       <FlatList
         horizontal={false}
         style={styles.container}
         numColumns = {2}
-        data={steps}
+        data={route.params.item.steps}
         // eslint-disable-next-line react/no-unescaped-entities
         ListEmptyComponent={<Text style={styles.text}>Nothing here! Click "Add Step" to get started.</Text>}
         keyExtractor={item => item.step}

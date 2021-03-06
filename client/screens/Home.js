@@ -21,8 +21,7 @@ export default function Home ({ navigation }) {
     const ID = (+projects[0].id+1).toString();
     addNewFolder(inputValue, ID);
     setInputValue('');
-    toggleModalVisibility();
-  };
+    toggleModalVisibility(); };
 
 
 
