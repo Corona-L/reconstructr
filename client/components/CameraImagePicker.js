@@ -3,10 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Image, Dime
 import * as ImagePicker from 'expo-image-picker';
 import { ModalContext } from '../store/ModalState';
 import Recorder from '../components/Recorder';
-// import { uploadImage } from '../API/firebaseMethods';
+import { uploadImage } from '../API/StorageMethods';
 
 
-export default function UseCamera ({id}) {
+export default function UseCamera ({id, title}) {
   // save your image here first
   const [imageUri, setImageUri] = useState(null);
   const [textInput, setTextInput] = useState('');
@@ -27,7 +27,7 @@ export default function UseCamera ({id}) {
 
   const addStep = () => {
     if (!imageUri) return Alert.alert('Please add a picture');
-    // uploadImage(imageUri)
+    uploadImage(imageUri, title, id).then(res => console.log(res));
     // save imagelink, textInput, id to database
     setTextInput('');
     setImageUri(null);
@@ -36,7 +36,8 @@ export default function UseCamera ({id}) {
 
   const takePicture = async () => {
     let result = await ImagePicker.launchCameraAsync({
-      base64: false
+      base64: false,
+      quality: 0.5,
     });
     console.log(result);
     if (!result.cancelled) {

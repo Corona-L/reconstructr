@@ -4,7 +4,7 @@ import UseCamera from '../components/CameraImagePicker';
 
 import { ModalContext } from '../store/ModalState';
 
-export default function AddStepModal ({ id }) {
+export default function AddStepModal ({ id, title}) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);
 
@@ -20,7 +20,7 @@ export default function AddStepModal ({ id }) {
         <View >
           <View style={{alignItems: 'center'}}>
             <Text style={styles.text}>Add a Step</Text>
-            <UseCamera id={id}></UseCamera>
+            <UseCamera id={id} title={title}></UseCamera>
           </View>
         </View>
       </ImageBackground>

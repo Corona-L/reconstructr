@@ -4,7 +4,8 @@ import AddStepModal from './AddStepModal';
 import {ModalContext} from '../store/ModalState';
 
 export default function ProjectFolder ({ navigation, route }) {
-  const id = route.params.item.id;
+  const id = route.params.item.steps[0].step+1;
+  const title = route.params.item.title;
 
   // global toggle function
   const {toggleModal} = useContext(ModalContext);
@@ -17,7 +18,7 @@ export default function ProjectFolder ({ navigation, route }) {
         onPress={toggleModal} >
         <Text style={styles.buttonText}> Add Step </Text>
       </TouchableOpacity>
-      <AddStepModal id={id}/>
+      <AddStepModal id={id} title={title}/>
       <FlatList
         horizontal={false}
         style={styles.container}
