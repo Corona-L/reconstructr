@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
-import Recorder from './Recorder';
 import { GlobalContext } from '../store/GlobalState';
 import { ModalContext } from '../store/ModalState';
 
@@ -14,11 +13,11 @@ export default function UseCamera ({id}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [, setIsPreview] = useState(false);
   const [textInput, setTextInput] = useState('');
-  const [sourceUrl, setSourceUrl] = useState(null);
+  const [imageUri, setSourceUrl] = useState(null);
 
   const addStep = () => {
-    if (!sourceUrl) return Alert.alert('Please add a picture');
-    addNewStep(textInput, sourceUrl, id);
+    if (!imageUri) return Alert.alert('Please add a picture');
+    addNewStep(textInput, imageUri, id);
     setTextInput('');
     setSourceUrl(null);
     toggleModal();
@@ -39,7 +38,7 @@ export default function UseCamera ({id}) {
   }
 
   const takePicture = async () => {
-    if (sourceUrl) return Alert.alert('Please delete current picture before taking another one');
+    if (imageUri) return Alert.alert('Please delete current picture before taking another one');
     if (cameraRef.current) {
       const options = { quality: 0.5, base64: true, skipProcessing: true };
       const data = await cameraRef.current.takePictureAsync(options);

@@ -1,11 +1,12 @@
-import React, {useContext} from 'react';
-import { View, StyleSheet, Modal, Text } from 'react-native';
-import UseCamera from '../components/Camera';
-import {ModalContext} from '../store/ModalState';
+import React, { useContext } from 'react';
+import { View, StyleSheet, Modal, Text, ImageBackground } from 'react-native';
+import UseCamera from '../components/CameraImagePicker';
+
+import { ModalContext } from '../store/ModalState';
 
 export default function AddStepModal ({ id }) {
   const { modal } = useContext(ModalContext);
-  const {toggleModal} = useContext(ModalContext);
+  const { toggleModal } = useContext(ModalContext);
 
   return (
     <Modal
@@ -15,18 +16,28 @@ export default function AddStepModal ({ id }) {
         toggleModal();
       }}
       presentationStyle="overFullScreen">
-      <View style={styles.modal}>
-        <View>
-          <Text style={styles.text}>Add a Step</Text>
-          <UseCamera id={id}></UseCamera>
+      <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
+        <View >
+          <View style={{alignItems: 'center'}}>
+            <Text style={styles.text}>Add a Step</Text>
+            <UseCamera id={id}></UseCamera>
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </Modal>
   );
 }
 
 // const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 20,
+    paddingBottom: 80,
+  },
   modal: {
     backgroundColor: '#041E34',
     flex: 1,
