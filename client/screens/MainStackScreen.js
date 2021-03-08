@@ -4,6 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './Home';
 import ProjectFolder from './ProjectFolder';
 import LaunchScreen from './LaunchScreen';
+import AuthScreen from './Authentication/AuthScreen';
+import SignUp from './Authentication/SignUp';
+import SignIn from './Authentication/SignIn';
 import StepDetail from './StepDetail';
 
 const MainStack = createStackNavigator();
@@ -17,6 +20,9 @@ export default function MainStackScreen () {
   return (
     <MainStack.Navigator>
       <MainStack.Screen name="Welcome" component={LaunchScreen} options={options} />
+      <MainStack.Screen name="Start" component={AuthScreen} options={options} />
+      <MainStack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
+      <MainStack.Screen name='Sign In' component={SignIn} options={{ headerShown: false }}/>
       <MainStack.Screen name="Home" component={Home} options={{...options, title: 'My Projects'}} />
       <MainStack.Screen name="ProjectFolder" component={ProjectFolder} options={{...options, title: 'Overview'}} />
       <MainStack.Screen name="StepDetail" component={StepDetail} options={{...options, title: 'Details'}} />

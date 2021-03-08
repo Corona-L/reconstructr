@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import {GlobalContext} from '../store/GlobalState';
+// import {GlobalContext} from '../store/GlobalState';
 
-export default function Recorder ({id}) {
-  const {saveRecording} = useContext(GlobalContext);
+export default function Recorder ({ saveAudio }) {
+  // const {saveRecording} = useContext(GlobalContext);
   const [recording, setRecording] = useState();
   const [recordingUri, setRecordingUri] = useState(null);
 
@@ -38,9 +38,9 @@ export default function Recorder ({id}) {
     setRecordingUri(uri);
   }
 
-  const saveAudio = () => {
-    saveRecording(recordingUri, id);
-    setRecordingUri(null);
+  const saveUri = () => {
+    saveAudio(recordingUri);
+
   };
 
   const deleteCurrentAudio = () => {
@@ -58,7 +58,7 @@ export default function Recorder ({id}) {
           <Ionicons name='pause-circle' size={45} color='#444' />
         )}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.control} onPress={saveAudio}>
+      <TouchableOpacity style={styles.control} onPress={saveUri}>
         <MaterialCommunityIcons name="content-save-move" size={35} color="#444" />
       </TouchableOpacity>
       <TouchableOpacity style={styles.control} onPress={deleteCurrentAudio}>

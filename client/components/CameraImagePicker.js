@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Image, Dime
 import * as ImagePicker from 'expo-image-picker';
 import { ModalContext } from '../store/ModalState';
 import Recorder from '../components/Recorder';
-import { uploadImage } from '../API/StorageMethods';
+// import { uploadImage, uploadAudio } from '../API/StorageMethods';
+// import { savetoDB } from '../API/DatabaseMethods';
 
 
 export default function UseCamera ({id, title}) {
   // save your image here first
   const [imageUri, setImageUri] = useState(null);
+  const [audioUri, setAudioUri] = useState(null);
   const [textInput, setTextInput] = useState('');
 
   const { toggleModal } = useContext(ModalContext);
@@ -25,12 +27,15 @@ export default function UseCamera ({id, title}) {
     })();
   }, []);
 
-  const addStep = () => {
-    if (!imageUri) return Alert.alert('Please add a picture');
-    uploadImage(imageUri, title, id).then(res => console.log(res));
+  const addStep = async () => {
+    // const imagelink = await uploadImage(imageUri, title, id);
+    // const audiolink = await uploadAudio(audioUri, title);
+    // await savetoDB(id, imagelink, audiolink, textInput);
+
     // save imagelink, textInput, id to database
     setTextInput('');
     setImageUri(null);
+    setAudioUri(null);
     toggleModal();
   };
 
@@ -43,6 +48,10 @@ export default function UseCamera ({id, title}) {
     if (!result.cancelled) {
       setImageUri(result.uri);
     }
+  };
+
+  const saveAudio = (uri) => {
+    setAudioUri(uri);
   };
 
   return (
@@ -59,7 +68,7 @@ export default function UseCamera ({id, title}) {
         {imageUri &&
         <View>
           <Text style={styles.text} >Save a voice note</Text>
-          <Recorder />
+          <Recorder saveAudio={saveAudio} />
           <TextInput multiline={true} maxLength={400} placeholder="Add a Description"
             value={textInput} style={styles.textInput}
             onChangeText={(value) => {setTextInput(value);}} />

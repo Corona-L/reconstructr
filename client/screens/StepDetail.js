@@ -1,12 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import {ModalContext} from '../store/ModalState';
 import Playback from '../components/Playback';
 import Recorder from '../components/Recorder';
+import { uploadAudio } from '../API/StorageMethods';
+import { saveAudiotoDB } from '../API/DatabaseMethods';
 
 export default function StepDetailModal ({ route }) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);
+  const [audioUri, setAudioUri] = useState(null);
+
+  // TODO: finish with database
+  const saveAudio = async (uri) => {
+    const audioLink = await uploadAudio(uri, 'name');
+    saveAudiotoDB(audioLink);
+    // saveAudiotoDB(id, route.params.item.step, audioLink);
+
+  };
 
 
   const emptyDescriptionMessage = <Text style={styles.notesText}>No description provided. You can add a new description any time</Text>;
@@ -37,7 +48,7 @@ export default function StepDetailModal ({ route }) {
           <Text style={[styles.notesText, { fontWeight: 'bold', fontSize: 20 }]}>Notes</Text>
           {!route.params.item.audioUri ? <Text style={[styles.notesText, {paddingTop: 10, marginLeft: '34%', fontStyle: 'italic'}]}>Add a voice note</Text> : <View/>}
         </View>
-        {!route.params.item.audioUri ? <Recorder /> : <Playback />}
+        {!route.params.item.audioUri ? <Recorder saveAudio={saveAudio} /> : <Playback />}
         <View style={styles.descriptionView} >
           {route.params.item.description ? descriptionMessage : emptyDescriptionMessage}
         </View>

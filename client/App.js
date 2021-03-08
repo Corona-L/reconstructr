@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // Firebase
 import * as firebase from 'firebase';
 import 'firebase/storage';
+import 'firebase/firestore';
 import apiKeys from './config/keys';
 
 import MainStackScreen from './screens/MainStackScreen';
@@ -15,15 +16,15 @@ import { ModalProvider } from './store/ModalState';
 
 const RootStack = createStackNavigator();
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-  console.log('Connected with Firebase');
-  firebase.initializeApp(apiKeys.firebaseConfig);
-}
 
 LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 
 export default function App () {
+  // Initialize Firebase
+  if (!firebase.apps.length) {
+    console.log('Connected with Firebase');
+    firebase.initializeApp(apiKeys.firebaseConfig);
+  }
   return (
     <GlobalProvider>
       <ModalProvider>

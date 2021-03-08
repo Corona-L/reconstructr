@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Alert } 
 import { GlobalContext } from '../store/GlobalState';
 import {ModalContext} from '../store/ModalState';
 import AddFolderModal from './AddFolderModal';
+// import {saveFoldertoDB} from '../API/DatabaseMethods';
 
 export default function Home ({ navigation }) {
   // mock data
@@ -15,9 +16,11 @@ export default function Home ({ navigation }) {
 
   const [inputValue, setInputValue] = useState('');
 
-  const addFolder = () => {
+  const addFolder = async () => {
     if (!inputValue.length) return Alert.alert('Please enter a project name');
     const ID = (+projects[0].id+1).toString();
+    //using real database
+    // saveFoldertoDB(inputValue);
     addNewFolder(inputValue, ID);
     setInputValue('');
     toggleModal();
