@@ -4,15 +4,32 @@ import {
   View,
   StyleSheet,
   Image,
+  useEffect,
   TouchableOpacity,
-  Text
+  Text,
+  ActivityIndicator
 } from 'react-native';
+import * as firebase from 'firebase';
+import 'firebase/auth';
 
-export default function LaunchScreen ({navigation}) {
+
+
+export default function Loading ({ navigation }) {
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.replace('Home');
+  //     } else {
+  //       navigation.replace('Start');
+  //     }
+  //   });
+  // }
+  // );
   return (
     <View style={styles.container}>
       <Image source={require('../assets/reconstructr-logo-static.png')} style={styles.image} />
-      <TouchableOpacity style={styles.button} onPress={() => navigation.reset({index:0, routes:[{name:'Home'}]})}>
+      <ActivityIndicator size='large' />
+      <TouchableOpacity style={styles.button} onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Home' }] })}>
         <Text style={styles.buttonText}> Create </Text>
       </TouchableOpacity>
     </View>

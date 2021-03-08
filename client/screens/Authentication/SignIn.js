@@ -27,14 +27,16 @@ export default function SignIn () {
 
       <TextInput
         style={styles.formInput}
-        placeholder="Enter your email"
+        placeholder='Enter your email'
+        placeholderTextColor='grey'
         value={email}
         onChangeText={(email) => setEmail(email)}
         autoCapitalize="none"
       />
       <TextInput
         style={styles.formInput}
-        placeholder="Enter your password"
+        placeholder='Enter your password'
+        placeholderTextColor='grey'
         value={password}
         onChangeText={(password) => setPassword(password)}
         secureTextEntry={true}

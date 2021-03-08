@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 // Firebase
 import * as firebase from 'firebase';
+import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/firestore';
 import apiKeys from './config/keys';

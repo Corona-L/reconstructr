@@ -1,24 +1,45 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Alert } from 'react-native';
+// import * as firebase from 'firebase';
+// import { loggingOut } from '../API/Auth';
 import { GlobalContext } from '../store/GlobalState';
-import {ModalContext} from '../store/ModalState';
+import { ModalContext } from '../store/ModalState';
 import AddFolderModal from './AddFolderModal';
 // import {saveFoldertoDB} from '../API/DatabaseMethods';
 
 export default function Home ({ navigation }) {
-  // mock data
-  const { projects } = useContext(GlobalContext);
-  // reducer function to change global state
-  const { addNewFolder } = useContext(GlobalContext);
+  // TODO: FIX. firebase.auth not working
+  // let currentUserUID = firebase.auth().currentUser.uid;
+  // const [firstName, setFirstName] = useState('');
 
-  // global modal function
-  const {toggleModal} = useContext(ModalContext);
+  const { projects } = useContext(GlobalContext);
+  const { addNewFolder } = useContext(GlobalContext);
+  const { toggleModal } = useContext(ModalContext);
 
   const [inputValue, setInputValue] = useState('');
 
+  // firebase authentication
+  // useEffect(() => {
+  //   async function getUserInfo () {
+  //     let doc = await firebase
+  //       .firestore()
+  //       .collection('users')
+  //       .doc(currentUserUID)
+  //       .get();
+
+  //     if (!doc.exists) {
+  //       Alert.alert('No user data found!');
+  //     } else {
+  //       let dataObj = doc.data();
+  //       setFirstName(dataObj.firstName);
+  //     }
+  //   }
+  //   getUserInfo();
+  // });
+
   const addFolder = async () => {
     if (!inputValue.length) return Alert.alert('Please enter a project name');
-    const ID = (+projects[0].id+1).toString();
+    const ID = (+projects[0].id + 1).toString();
     //using real database
     // saveFoldertoDB(inputValue);
     addNewFolder(inputValue, ID);
@@ -37,7 +58,7 @@ export default function Home ({ navigation }) {
         ListEmptyComponent={<Text style={styles.text}>Click "Add New" to get started</Text>}
         keyExtractor={item => item.id}
         renderItem={({ item }) =>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProjectFolder', {item})}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProjectFolder', { item })}>
             <Text style={[styles.buttonText]}>{item.title}</Text>
           </TouchableOpacity>
         }>
@@ -46,10 +67,10 @@ export default function Home ({ navigation }) {
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#FFDE59', height: 60 }]}
         onPress={toggleModal}>
-        <Text style={[styles.buttonText, { textAlign: 'center'}]}>+ Add New </Text>
+        <Text style={[styles.buttonText, { textAlign: 'center' }]}>+ Add New </Text>
       </TouchableOpacity>
 
-      <AddFolderModal value={inputValue} setInputValue={setInputValue} addFolder={addFolder}/>
+      <AddFolderModal value={inputValue} setInputValue={setInputValue} addFolder={addFolder} />
     </ImageBackground>
   );
 }

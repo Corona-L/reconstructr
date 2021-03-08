@@ -51,12 +51,14 @@ export default function SignUp ({ navigation }) {
           <TextInput
             style={styles.textInput}
             placeholder="First name*"
+            placeholderTextColor='grey'
             value={firstName}
             onChangeText={(name) => setFirstName(name)}
           />
           <TextInput
             style={styles.textInput}
             placeholder="Last name"
+            placeholderTextColor='grey'
             value={lastName}
             onChangeText={(name) => setLastName(name)}
           />
@@ -64,6 +66,7 @@ export default function SignUp ({ navigation }) {
           <TextInput
             style={styles.textInput}
             placeholder="Enter your email*"
+            placeholderTextColor='grey'
             value={email}
             onChangeText={(email) => setEmail(email)}
             keyboardType="email-address"
@@ -73,6 +76,7 @@ export default function SignUp ({ navigation }) {
           <TextInput
             style={styles.textInput}
             placeholder="Enter your password*"
+            placeholderTextColor='grey'
             value={password}
             onChangeText={(password) => setPassword(password)}
             secureTextEntry={true}
@@ -80,6 +84,7 @@ export default function SignUp ({ navigation }) {
           <TextInput
             style={styles.textInput}
             placeholder="Retype your password to confirm*"
+            placeholderTextColor='grey'
             value={confirmPassword}
             onChangeText={(password2) => setConfirmPassword(password2)}
             secureTextEntry={true}
@@ -144,5 +149,6 @@ const styles = StyleSheet.create({
     borderColor: '#FFDE59',
     padding: 10,
     margin: 5,
+    color: 'white',
   },
 });

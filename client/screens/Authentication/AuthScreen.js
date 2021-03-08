@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, View, Text} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function WelcomeScreen ({navigation}) {
+export default function AuthScreen ({navigation}) {
   return (
     <View style={styles.background}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Welcome to Reconstructr</Text>
+        <Text style={styles.title}>Welcome to RE:constructR</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign Up')} >
         <Text style={styles.buttonText}>Sign Up</Text>
@@ -31,27 +31,27 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 3,
     borderColor: 'white',
-    backgroundColor: '#4ecdc4',
+    backgroundColor: '#FFDE59',
     padding: 5,
     margin: '2%'
   },
   buttonText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'navy',
+    color: 'black',
     textAlign: 'center'
   },
   inlineText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'navy',
+    color: '#FFDE59',
     textAlign: 'center',
     marginTop: '5%',
   },
   title: {
     fontSize: 35,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#FFDE59',
     textAlign: 'center'
   },
   titleContainer: {
