@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, ScrollView, Keyboard, StyleSheet, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { registration } from '../../API/Auth.js';
+// import { registration } from '../../API/FireBaseAuth.js';
+import { registration } from '../../API/DatabaseMethods.js';
 
 export default function SignUp ({ navigation }) {
   const [firstName, setFirstName] = useState('');
@@ -18,7 +19,7 @@ export default function SignUp ({ navigation }) {
     setConfirmPassword('');
   };
 
-  const handlePress = () => {
+  const handlePress = async () => {
     if (!firstName) {
       Alert.alert('First name is required');
     } else if (!email) {
@@ -31,13 +32,10 @@ export default function SignUp ({ navigation }) {
     } else if (password !== confirmPassword) {
       Alert.alert('Password does not match!');
     } else {
-      registration(
-        email,
-        password,
-        lastName,
-        firstName,
-      );
-      navigation.navigate('Loading');
+      const newUser = await registration({firstName, lastName, email, password});
+      if (newUser === undefined) return Alert.alert('Something went wrong. Please try again');
+      const id = newUser.id;
+      navigation.navigate('Home', { id });
       emptyState();
     }
   };

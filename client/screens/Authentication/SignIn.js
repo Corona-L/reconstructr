@@ -1,24 +1,37 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {signIn} from '../../API/Auth';
+// import {signIn} from '../../API/FireBaseAuth';
+import {signIn} from '../../API/DatabaseMethods';
 
-export default function SignIn () {
+export default function SignIn ({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handlePress = () => {
+  const handlePress = async () => {
     if (!email) {
-      Alert.alert('Email field is required.');
+      setPassword('');
+      setEmail('');
+      return Alert.alert('Email field is required.');
     }
-
     if (!password) {
-      Alert.alert('Password field is required.');
+      setPassword('');
+      setEmail('');
+      return Alert.alert('Password field is required.');
+    }
+    const user = await signIn(email);
+    if (user === undefined) {
+      setEmail('');
+      setPassword('');
+      return Alert.alert('Something went wrong. Please try again');
+    } else if (user.id) {
+      const id = user.id;
+      setEmail('');
+      setPassword('');
+      navigation.navigate('Home', { id });
+
     }
 
-    signIn(email, password);
-    setEmail('');
-    setPassword('');
   };
 
   return (
