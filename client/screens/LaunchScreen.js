@@ -25,7 +25,7 @@ export default function Loading ({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/reconstructr-logo-static.png')} style={styles.image} />
+      <Image source={require('../assets/images/reconstructR.gif')} style={styles.image} />
       <ActivityIndicator size='large' />
       <TouchableOpacity style={styles.button} onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Start' }] })}>
         <Text style={styles.buttonText}> Create </Text>
