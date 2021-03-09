@@ -10,11 +10,13 @@ export default function StepDetailModal ({ route }) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);
   const [audioUri, setAudioUri] = useState(null);
+  const audiourl = route.params.item.audiourl;
 
   // TODO: finish with database
   const saveAudio = async (uri) => {
-    const audioLink = await uploadAudio(uri, 'name');
-    saveAudiotoDB(audioLink);
+    console.log('TODO');
+    // const audioLink = await uploadAudio(uri, 'name');
+    // saveAudiotoDB(audioLink);
     // saveAudiotoDB(id, route.params.item.step, audioLink);
   };
 
@@ -45,9 +47,9 @@ export default function StepDetailModal ({ route }) {
         </Modal>
         <View style={styles.notesView} >
           <Text style={[styles.notesText, { fontWeight: 'bold', fontSize: 20 }]}>Notes</Text>
-          {!route.params.item.audiouri ? <Text style={[styles.notesText, {paddingTop: 10, marginLeft: '34%', fontStyle: 'italic'}]}>Add a voice note</Text> : <View/>}
+          {!route.params.item.audiourl ? <Text style={[styles.notesText, {paddingTop: 10, marginLeft: '34%', fontStyle: 'italic'}]}>Add a voice note</Text> : <View/>}
         </View>
-        {!route.params.item.audiouri ? <Recorder saveAudio={saveAudio} /> : <Playback />}
+        {!route.params.item.audiourl ? <Recorder saveAudio={saveAudio} /> : <Playback audiourl={audiourl}/>}
         <View style={styles.descriptionView} >
           {route.params.item.description ? descriptionMessage : emptyDescriptionMessage}
         </View>

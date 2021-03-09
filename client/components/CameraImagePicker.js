@@ -28,7 +28,7 @@ export default function UseCamera ({projectId, title, setAllSteps}) {
 
   const addSteptoDB = async () => {
     const imageurl = await uploadImage(imageUri, title, projectId);
-    const audiourl = await uploadAudio(audioUri, title);
+    const audiourl = await uploadAudio(audioUri, title, projectId);
     const stepnum = 6;
     const result = await addStep({projectId, stepnum, imageurl, audiourl, description});
     console.log(result);

@@ -39,6 +39,7 @@ export default function Recorder ({ saveAudio }) {
   }
 
   const saveUri = () => {
+    console.log(recordingUri);
     saveAudio(recordingUri);
 
   };

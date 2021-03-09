@@ -3,19 +3,19 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 
-export default function Playback () {
+export default function Playback ({ audiourl }) {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-
+  console.log(audiourl);
   //  need to get audio from firebase
-  // const source = 'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort.mp3';
+  const source = audiourl;
 
   async function toggleSound () {
     if (!isPlaying) {
       setIsPlaying(true);
       // need to get sound link from firebase
-      const { sound } = await Audio.Sound.createAsync(require('../assets/Kalimba.mp3'));
-      // const { sound } = await Audio.Sound.createAsync(source));
+      // const { sound } = await Audio.Sound.createAsync(require('../assets/Kalimba.mp3'));
+      const { sound } = await Audio.Sound.createAsync(source);
       setSound(sound);
       await sound.playAsync();
     } else {

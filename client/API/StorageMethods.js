@@ -37,9 +37,12 @@ export async function uploadAudio (uri, folderName, userUID,) {
   const ref = firebase
     .storage()
     .ref()
-    .child(`${folderName}/${userUID}`);
+    .child(`${folderName}/${userUID}.m4a`);
 
-  let snapshot = await ref.put(blob);
+  // let snapshot = await ref.put(blob);
+  let snapshot = await ref.put(blob, {
+    contentType: 'audio/m4a',
+  });
 
   return await snapshot.ref.getDownloadURL();
 }
