@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet, Modal, Text, ImageBackground } from 'react-native';
 import UseCamera from '../components/CameraImagePicker';
-
 import { ModalContext } from '../store/ModalState';
 
-export default function AddStepModal ({ id, title}) {
+export default function AddStepModal ({ projectId, title,  setAllSteps }) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);
 
@@ -20,7 +19,7 @@ export default function AddStepModal ({ id, title}) {
         <View >
           <View style={{alignItems: 'center'}}>
             <Text style={styles.text}>Add a Step</Text>
-            <UseCamera id={id} title={title}></UseCamera>
+            <UseCamera projectId={projectId} title={title} setAllSteps={setAllSteps}></UseCamera>
           </View>
         </View>
       </ImageBackground>

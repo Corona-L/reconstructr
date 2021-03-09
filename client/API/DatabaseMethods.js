@@ -9,29 +9,33 @@ export const getProjects = (userId) =>
 
 
 
-export const addProjectName = (userId, projectObj) =>
+export const addProjectName = (userId, projectname) =>
   fetch(`${baseUrl}/project/${userId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(projectObj)
+    body: JSON.stringify({projectname})
   })
-    .then(res => res.json())
+    .then(res => res.status <= 400 ? res : Promise.reject())
+    .then(res => res.status === 204 ? res : res.json())
     .catch(err => console.log(err));
 
 
 // steps
 export const getAllSteps = (projectId) =>
-  fetch(`${baseUrl}/project/${projectId}`)
-    .then(res => res.json())
-    .catch(err => console.log(err));
+  fetch(`${baseUrl}/step/${projectId}`)
+    .then(res => res.status <= 400 ? res : Promise.reject())
+    .then(res => res.status === 204 ? res : res.json())
+    .catch(err => console.log('error is:', err));
 
-export const addStep = (projectId, stepObj) =>
-  fetch(`${baseUrl}/project/${projectId}`, {
+
+export const addStep = (newStep) =>
+  fetch(`${baseUrl}/step`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(stepObj)
+    body: JSON.stringify(newStep)
   })
-    .then(res => res.json())
+    .then(res => res.status <= 400 ? res : Promise.reject())
+    .then(res => res.status === 204 ? res : res.json())
     .catch(err => console.log(err));
 
 

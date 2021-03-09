@@ -26,9 +26,10 @@ export default function SignIn ({ navigation }) {
       return Alert.alert('Something went wrong. Please try again');
     } else if (user.id) {
       const id = user.id;
+      const name = user.username;
       setEmail('');
       setPassword('');
-      navigation.navigate('Home', { id });
+      navigation.navigate('Home', { id, name});
 
     }
 

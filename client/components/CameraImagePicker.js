@@ -3,15 +3,15 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Image, Dime
 import * as ImagePicker from 'expo-image-picker';
 import { ModalContext } from '../store/ModalState';
 import Recorder from '../components/Recorder';
-// import { uploadImage, uploadAudio } from '../API/StorageMethods';
-// import { savetoDB } from '../API/DatabaseMethods';
+import { uploadImage, uploadAudio } from '../API/StorageMethods';
+import { addStep } from '../API/DatabaseMethods';
 
 
-export default function UseCamera ({id, title}) {
+export default function UseCamera ({projectId, title, setAllSteps}) {
   // save your image here first
   const [imageUri, setImageUri] = useState(null);
   const [audioUri, setAudioUri] = useState(null);
-  const [textInput, setTextInput] = useState('');
+  const [description, setDescription] = useState('');
 
   const { toggleModal } = useContext(ModalContext);
 
@@ -27,13 +27,14 @@ export default function UseCamera ({id, title}) {
     })();
   }, []);
 
-  const addStep = async () => {
-    // const imagelink = await uploadImage(imageUri, title, id);
-    // const audiolink = await uploadAudio(audioUri, title);
-    // await savetoDB(id, imagelink, audiolink, textInput);
-
-    // save imagelink, textInput, id to database
-    setTextInput('');
+  const addSteptoDB = async () => {
+    const imageurl = await uploadImage(imageUri, title, projectId);
+    const audiourl = await uploadAudio(audioUri, title);
+    const stepnum = 6;
+    const result = await addStep({projectId, stepnum, imageurl, audiourl, description});
+    console.log(result);
+    setAllSteps(oldSteps => [result, ...oldSteps]);
+    setDescription('');
     setImageUri(null);
     setAudioUri(null);
     toggleModal();
@@ -44,7 +45,6 @@ export default function UseCamera ({id, title}) {
       base64: false,
       quality: 0.5,
     });
-    console.log(result);
     if (!result.cancelled) {
       setImageUri(result.uri);
     }
@@ -70,9 +70,9 @@ export default function UseCamera ({id, title}) {
           <Text style={styles.text} >Save a voice note</Text>
           <Recorder saveAudio={saveAudio} />
           <TextInput multiline={true} maxLength={400} placeholder="Add a Description"
-            value={textInput} style={styles.textInput}
-            onChangeText={(value) => {setTextInput(value);}} />
-          <TouchableOpacity style={styles.button} onPress={addStep} >
+            value={description} style={styles.textInput}
+            onChangeText={(value) => {setDescription(value);}} />
+          <TouchableOpacity style={styles.button} onPress={addSteptoDB} >
             <Text style={styles.buttonText}>Save next step</Text>
           </TouchableOpacity>
         </View>

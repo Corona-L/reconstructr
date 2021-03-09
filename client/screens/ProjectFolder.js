@@ -1,39 +1,50 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { StyleSheet, Image, ImageBackground, TouchableOpacity, View, Text, FlatList, Dimensions  } from 'react-native';
 import AddStepModal from './AddStepModal';
 import {ModalContext} from '../store/ModalState';
+import {getAllSteps } from '../API/DatabaseMethods';
+
 
 export default function ProjectFolder ({ navigation, route }) {
-  const id = route.params.item.id;
-  const title = route.params.item.title;
+  const [allSteps, setAllSteps] = useState([]);
+  const projectId = route.params.item.id;
+  const userId = route.params.item.userId;
+  const title = route.params.item.projectname;
+
+
+  useEffect(() => {
+    getAllSteps(projectId)
+      .then(result => Object.values(result).flat())
+      .then(steps => setAllSteps(steps));
+  }, []);
+
 
   // global toggle function
   const {toggleModal} = useContext(ModalContext);
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
-      <Text style={styles.title}>{route.params.item.title}</Text>
+      <Text style={styles.title}>{route.params.item.projectname}</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={toggleModal} >
-
         <Text style={styles.buttonText}> Add Step </Text>
       </TouchableOpacity>
-      <AddStepModal id={id} title={title}/>
+      <AddStepModal setAllSteps={setAllSteps} projectId={projectId} title={title}/>
       <FlatList
         horizontal={false}
         style={styles.container}
         numColumns = {2}
-        data={route.params.item.steps}
+        data={allSteps}
         // eslint-disable-next-line react/no-unescaped-entities
         ListEmptyComponent={<Text style={styles.text}>Nothing here! Click "Add Step" to get started.</Text>}
-        keyExtractor={item => item.step}
+        keyExtractor={item => item.stepnum.toString()}
         renderItem={ ({ item }) => (
           <View>
             <TouchableOpacity onPress={() => navigation.navigate('StepDetail', {item})}>
-              <Image source={{uri: item.imageUrl}} style = {styles.ImagesStyle} />
+              <Image source={{uri: item.imageurl}} style = {styles.ImagesStyle} />
             </TouchableOpacity>
-            <Text style={styles.text}> Step {item.step}</Text>
+            <Text style={styles.text}> Step {item.stepnum}</Text>
           </View>
         )}>
       </FlatList>
