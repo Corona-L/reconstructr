@@ -6,13 +6,11 @@ exports.signUp = async (req, res) => {
     const { firstname, lastname, email, password } = req.body;
     const preCheck = await db.user.findOne({ where: { email: email } });
     if (preCheck === null) {
-      console.log('create');
       const user = await db.user.create({firstname, lastname, email, password });
       const { id } = user;
       res.status = 201;
       res.send({ id, firstname});
     } else if (preCheck.email) {
-      console.log('email already exists');
       res.sendStatus(409);
     }
   } catch (e) {

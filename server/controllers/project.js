@@ -21,7 +21,6 @@ exports.getProjects = async (req, res) => {
       attributes: ['projectname', 'id', 'userId'],
       where: {userId: id}
     });
-    console.log(projects);
     res.status = 200;
     res.send({projects});
     //   res.send({projects});
