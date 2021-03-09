@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { StyleSheet, Image, ImageBackground, TouchableOpacity, View, Text, FlatList, Dimensions  } from 'react-native';
+import { StyleSheet, Image, ImageBackground, TouchableOpacity, View, Text, FlatList, Dimensions, Switch  } from 'react-native';
 import AddStepModal from './AddStepModal';
 import {ModalContext} from '../store/ModalState';
 import {getAllSteps } from '../API/DatabaseMethods';
@@ -8,8 +8,23 @@ import {getAllSteps } from '../API/DatabaseMethods';
 export default function ProjectFolder ({ navigation, route }) {
   const [allSteps, setAllSteps] = useState([]);
   const projectId = route.params.item.id;
+  const [isEnabled, setIsEnabled] = useState(false);
   const title = route.params.item.projectname;
   const stepNum = allSteps.length === 0 ? 0 : allSteps[allSteps.length-1].stepnum;
+
+
+
+  const toggleSwitch = () => {
+    if (isEnabled === false) {
+      const newstep = allSteps.slice().sort((a, b) => b.stepnum-a.stepnum);
+      setAllSteps(newstep);
+    } else {
+      const newstep = allSteps.slice().sort((a, b) => a.stepnum-b.stepnum);
+      setAllSteps(newstep);
+    }
+    setIsEnabled(previousState => !previousState);
+  };
+
 
 
   useEffect(() => {
@@ -30,6 +45,14 @@ export default function ProjectFolder ({ navigation, route }) {
         onPress={toggleModal} >
         <Text style={styles.buttonText}> Add Step </Text>
       </TouchableOpacity>
+      <View style={styles.toggle}>
+        <Switch
+          trackColor={{ false: '#767577', true: '#81b0ff' }}
+          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}></Switch>
+      </View>
       <AddStepModal setAllSteps={setAllSteps} projectId={projectId} title={title} stepNum={stepNum}/>
       <FlatList
         horizontal={false}
@@ -57,12 +80,17 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: '3%',
   },
   title: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 25,
+  },
+  toggle: {
+    alignSelf: 'flex-end',
+    marginTop: '5%',
+    marginEnd: '3%'
   },
   image: {
     flex: 1,
@@ -85,6 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     alignSelf: 'center',
     fontWeight: 'bold',
+    fontFamily: 'monospace'
 
   },
   button: {

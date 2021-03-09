@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Alert } from 'react-native';
+import { Card } from 'react-native-elements';
 import { ModalContext } from '../store/ModalState';
 import AddFolderModal from './AddFolderModal';
 import {getProjects, addProjectName } from '../API/DatabaseMethods';
@@ -38,7 +39,9 @@ export default function Home ({ navigation, route }) {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) =>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProjectFolder', { item })}>
-            <Text style={[styles.buttonText]}>{item.projectname}</Text>
+            <Card>
+              <Text style={[styles.buttonText]}>{item.projectname}</Text>
+            </Card>
           </TouchableOpacity>
         }>
       </FlatList>

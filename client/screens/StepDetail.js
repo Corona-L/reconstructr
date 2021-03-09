@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity, Modal, ScrollView} from 'react-native';
 import {ModalContext} from '../store/ModalState';
 import Playback from '../components/Playback';
 import Recorder from '../components/Recorder';
@@ -45,7 +45,7 @@ export default function StepDetailModal ({ route }) {
           </TouchableOpacity>
         </Modal>
         <View style={styles.notesView} >
-          <Text style={[styles.notesText, { fontWeight: 'bold', fontSize: 20 }]}>Notes</Text>
+          <Text style={[styles.notesText, { fontWeight: 'bold', fontSize: 22, color: '#FFDE59' }]}>Notes</Text>
           {!route.params.item.audiourl ? <Text style={[styles.notesText, {paddingTop: 10, marginLeft: '34%', fontStyle: 'italic'}]}>Add a voice note</Text> : <View/>}
         </View>
         {!route.params.item.audiourl ? <Recorder saveAudio={saveAudio} /> : <Playback audiourl={audiourl}/>}
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 15,
     color: 'white',
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold'
   },
   view: {
@@ -94,6 +94,8 @@ const styles = StyleSheet.create({
     width: '30%'
   },
   notesText: {
+    fontFamily: 'monospace',
+    fontSize: 16,
     color: 'white',
   },
   notesView: {

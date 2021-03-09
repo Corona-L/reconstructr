@@ -1,26 +1,30 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 
 export default function Playback ({ audiourl }) {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  console.log(audiourl);
-  //  need to get audio from firebase
+
   const source = audiourl;
 
   async function toggleSound () {
-    if (!isPlaying) {
-      setIsPlaying(true);
-      // need to get sound link from firebase
-      // const { sound } = await Audio.Sound.createAsync(require('../assets/Kalimba.mp3'));
-      const { sound } = await Audio.Sound.createAsync(source);
-      setSound(sound);
-      await sound.playAsync();
-    } else {
-      setIsPlaying(false);
-      sound.pauseAsync();
+    try {
+      if (!isPlaying) {
+        setIsPlaying(true);
+        // const { sound } = await Audio.Sound.createAsync(require('../assets/Kalimba.mp3'));
+        const { sound } = await Audio.Sound.createAsync(source, initialStatus = {}, downloadFirst = false);
+
+        setSound(sound);
+        await sound.playAsync();
+      } else {
+        setIsPlaying(false);
+        sound.pauseAsync();
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Something went wrong');
     }
   }
 
