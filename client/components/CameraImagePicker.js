@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Image, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, Dimensions} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { ModalContext } from '../store/ModalState';
 import Recorder from '../components/Recorder';
@@ -14,7 +14,6 @@ export default function UseCamera ({projectId, title, setAllSteps}) {
   const [description, setDescription] = useState('');
 
   const { toggleModal } = useContext(ModalContext);
-
 
   useEffect(() => {
     (async () => {
@@ -33,7 +32,7 @@ export default function UseCamera ({projectId, title, setAllSteps}) {
     const stepnum = 6;
     const result = await addStep({projectId, stepnum, imageurl, audiourl, description});
     console.log(result);
-    setAllSteps(oldSteps => [result, ...oldSteps]);
+    setAllSteps(oldSteps => [...oldSteps, result]);
     setDescription('');
     setImageUri(null);
     setAudioUri(null);
@@ -76,11 +75,7 @@ export default function UseCamera ({projectId, title, setAllSteps}) {
             <Text style={styles.buttonText}>Save next step</Text>
           </TouchableOpacity>
         </View>
-
         }
-
-
-
       </View>
     </View>
   );
