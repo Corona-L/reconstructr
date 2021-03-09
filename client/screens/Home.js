@@ -9,8 +9,6 @@ export default function Home ({ navigation, route }) {
   const [inputValue, setInputValue] = useState('');
   const { toggleModal } = useContext(ModalContext);
   const userId = route.params.id;
-  console.log(projectNames);
-
 
   useEffect(() => {
     getProjects(userId)

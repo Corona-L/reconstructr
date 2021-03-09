@@ -1,24 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import {ModalContext} from '../store/ModalState';
 import Playback from '../components/Playback';
 import Recorder from '../components/Recorder';
-import { uploadAudio } from '../API/StorageMethods';
-import { saveAudiotoDB } from '../API/DatabaseMethods';
+// import { uploadAudio } from '../API/StorageMethods';
+// import { saveAudiotoDB } from '../API/DatabaseMethods';
 
 export default function StepDetailModal ({ route }) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);
-  const [audioUri, setAudioUri] = useState(null);
+  // const [audioUri, setAudioUri] = useState(null);
   const audiourl = route.params.item.audiourl;
 
   // TODO: finish with database
-  const saveAudio = async (uri) => {
-    console.log('TODO');
-    // const audioLink = await uploadAudio(uri, 'name');
-    // saveAudiotoDB(audioLink);
-    // saveAudiotoDB(id, route.params.item.step, audioLink);
-  };
+  // const saveAudio = async (uri) => {  //
+  //   // const audioLink = await uploadAudio(uri, 'name');
+  //   // saveAudiotoDB(audioLink);
+  //   // saveAudiotoDB(id, route.params.item.step, audioLink);
+  // };
 
 
   const emptyDescriptionMessage = <Text style={styles.notesText}>No description provided. You can add a new description any time</Text>;

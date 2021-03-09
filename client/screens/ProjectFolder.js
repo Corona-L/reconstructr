@@ -9,6 +9,7 @@ export default function ProjectFolder ({ navigation, route }) {
   const [allSteps, setAllSteps] = useState([]);
   const projectId = route.params.item.id;
   const title = route.params.item.projectname;
+  const stepNum = allSteps.length === 0 ? 0 : allSteps[allSteps.length-1].stepnum;
 
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export default function ProjectFolder ({ navigation, route }) {
         onPress={toggleModal} >
         <Text style={styles.buttonText}> Add Step </Text>
       </TouchableOpacity>
-      <AddStepModal setAllSteps={setAllSteps} projectId={projectId} title={title}/>
+      <AddStepModal setAllSteps={setAllSteps} projectId={projectId} title={title} stepNum={stepNum}/>
       <FlatList
         horizontal={false}
         style={styles.container}
@@ -70,16 +71,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   ImagesStyle: {
-    height: height/4.9,
+    borderColor: 'white',
+    borderWidth: 1,
+    height: height/4.5,
     width: width/2.3,
-    margin: 10,
+    margin: 8,
     borderRadius: 5,
   },
   text: {
     marginBottom: 10,
-    padding: 5,
+    padding: 3,
     color: 'white',
     fontSize: 15,
+    alignSelf: 'center',
+    fontWeight: 'bold',
 
   },
   button: {

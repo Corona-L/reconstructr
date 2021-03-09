@@ -7,11 +7,12 @@ import { uploadImage, uploadAudio } from '../API/StorageMethods';
 import { addStep } from '../API/DatabaseMethods';
 
 
-export default function UseCamera ({projectId, title, setAllSteps}) {
+export default function UseCamera ({projectId, title, setAllSteps, stepNum}) {
   // save your image here first
   const [imageUri, setImageUri] = useState(null);
   const [audioUri, setAudioUri] = useState(null);
   const [description, setDescription] = useState('');
+  const stepnum = stepNum+1;
 
   const { toggleModal } = useContext(ModalContext);
 
@@ -29,9 +30,7 @@ export default function UseCamera ({projectId, title, setAllSteps}) {
   const addSteptoDB = async () => {
     const imageurl = await uploadImage(imageUri, title, projectId);
     const audiourl = await uploadAudio(audioUri, title, projectId);
-    const stepnum = 6;
     const result = await addStep({projectId, stepnum, imageurl, audiourl, description});
-    console.log(result);
     setAllSteps(oldSteps => [...oldSteps, result]);
     setDescription('');
     setImageUri(null);
