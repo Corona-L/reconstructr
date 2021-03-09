@@ -9,6 +9,7 @@ export default function Home ({ navigation, route }) {
   const [inputValue, setInputValue] = useState('');
   const { toggleModal } = useContext(ModalContext);
   const userId = route.params.id;
+  console.log(projectNames);
 
 
   useEffect(() => {
@@ -19,9 +20,10 @@ export default function Home ({ navigation, route }) {
 
   const addFolder = async () => {
     if (!inputValue.length) return Alert.alert('Please enter a project name');
-    const newProject = await addProjectName(userId, inputValue);
-    const nameToAdd = newProject.name;
-    setProjectNames(oldProj => [nameToAdd, ...oldProj]);
+    await addProjectName(userId, inputValue);
+    getProjects(userId)
+      .then(result => Object.values(result).flat())
+      .then(projects => setProjectNames(projects));
     setInputValue('');
     toggleModal();
   };

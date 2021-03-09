@@ -16,7 +16,6 @@ export default function StepDetailModal ({ route }) {
     const audioLink = await uploadAudio(uri, 'name');
     saveAudiotoDB(audioLink);
     // saveAudiotoDB(id, route.params.item.step, audioLink);
-
   };
 
 
@@ -26,13 +25,13 @@ export default function StepDetailModal ({ route }) {
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
-      <Text style={styles.text}>Step {route.params.item.step}</Text>
+      <Text style={styles.text}>Step {route.params.item.stepnum}</Text>
       <View style={styles.view} />
       <ScrollView>
         <TouchableOpacity onPress={toggleModal}>
           <Image
             style={styles.imageStyle}
-            source={{ uri: route.params.item.imageUrl }}/>
+            source={{ uri: route.params.item.imageurl }}/>
         </TouchableOpacity>
         <Modal
           visible={modal}
@@ -41,14 +40,14 @@ export default function StepDetailModal ({ route }) {
           <TouchableOpacity onPress={toggleModal}>
             <Image
               style={styles.modalImage}
-              source={{ uri: route.params.item.imageUrl }} />
+              source={{ uri: route.params.item.imageurl }} />
           </TouchableOpacity>
         </Modal>
         <View style={styles.notesView} >
           <Text style={[styles.notesText, { fontWeight: 'bold', fontSize: 20 }]}>Notes</Text>
-          {!route.params.item.audioUri ? <Text style={[styles.notesText, {paddingTop: 10, marginLeft: '34%', fontStyle: 'italic'}]}>Add a voice note</Text> : <View/>}
+          {!route.params.item.audiouri ? <Text style={[styles.notesText, {paddingTop: 10, marginLeft: '34%', fontStyle: 'italic'}]}>Add a voice note</Text> : <View/>}
         </View>
-        {!route.params.item.audioUri ? <Recorder saveAudio={saveAudio} /> : <Playback />}
+        {!route.params.item.audiouri ? <Recorder saveAudio={saveAudio} /> : <Playback />}
         <View style={styles.descriptionView} >
           {route.params.item.description ? descriptionMessage : emptyDescriptionMessage}
         </View>

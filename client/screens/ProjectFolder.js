@@ -8,7 +8,6 @@ import {getAllSteps } from '../API/DatabaseMethods';
 export default function ProjectFolder ({ navigation, route }) {
   const [allSteps, setAllSteps] = useState([]);
   const projectId = route.params.item.id;
-  const userId = route.params.item.userId;
   const title = route.params.item.projectname;
 
 
