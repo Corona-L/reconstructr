@@ -3,21 +3,41 @@ const db = require('../models/index');
 
 exports.addStep = async (req, res) => {
   try {
-    const {projectId, stepDetails} = req.body;
-    const step = await db.step.create({projectId, stepDetails});
+    const details = req.body;
+    const newStep = await db.step.create(details);
+    console.log(newStep);
+    const { stepnum, imageurl, audiourl, description, id, projectId} = newStep;
     res.status = 201;
-    res.body = step;
+    res.send({ stepnum, imageurl, audiourl, description, id, projectId });
   } catch (e) {
     res.status = 500;
   }
 };
 
+
+
 exports.getAllSteps = async (req, res) => {
   try {
-    const {projectId} = req.body;
-    const steps = await db.step.findAll({ where: { id: projectId } });
+    const { projectId } = req.params;
+    console.log(projectId);
+    const numId = Number(projectId);
+    console.log('hello');
+    // const steps = await db.step.findAll({
+    //   attributes: ['stepnum', 'imageurl', 'audiourl', 'description'],
+    //   where: {id: projectId}
+    // });
+    const steps = await db.step.findAll({ where: { projectId: numId } });
+    // console.log(steps);
     res.status = 200;
-    res.body = steps;
+    res.send({steps});
+    // if (steps.length === 0) {
+    //   res.sendStatus(204);
+    // } else {
+    //   res.status = 200;
+    //   res.send({steps});
+    // }
+    // res.status = 200;
+    // res.body = steps;
   } catch (e) {
     res.status = 500;
   }
@@ -25,11 +45,14 @@ exports.getAllSteps = async (req, res) => {
 
 exports.updateStepAudio = async (req, res) => {
   try {
-    const {stepId, audioUrl} = req.body;
-    const step = await db.step.find({ where: { id: stepId } });
-    const update = await step.update({audiourl: audioUrl});
-    res.status = 200;
-    res.body = update;
+    const { projectId, stepId} = req.params;
+    const audioUrl = req.body;
+    const step = await db.step.find({ where: { stepId: stepId } });
+    console.log(step);
+    // const update = await step.update({audiourl: audioUrl});
+    // console.log(update);
+    // res.status = 201;
+    // res.send({update});
   } catch (e) {
     res.status = 500;
   }

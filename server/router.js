@@ -5,14 +5,13 @@ const project = require('./controllers/project');
 const step = require('./controllers/step');
 
 
-router
-  .get('/project/:id', project.getProjects)
-  .post('/project/:id', project.addProject);
+router.get('/project/:id', project.getProjects);
+router.post('/project/:id', project.addProject);
 
 router
   .get('/step/:projectId', step.getAllSteps)
-  .post('/step/:projectId', step.addStep)
-  .post('/audio/:stepId', step.updateStepAudio);
+  .post('/step/', step.addStep)
+  .post('/audio/:projectId/:stepId', step.updateStepAudio);
 
 router
   .post('/user/', user.signUp)
