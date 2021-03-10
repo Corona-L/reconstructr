@@ -12,11 +12,11 @@ Reconstructr is simple but effective app that users can utilize to take detailed
 
 <img src="https://raw.githubusercontent.com/Corona-L/reconstructr/main/screenshots/3-project-list.jpg" alt="3-project-list" style="zoom:25%;" />
 
+<img src="https://github.com/Corona-L/reconstructr/blob/main/screenshots/4-allsteps%20in%20a%20project.jpg" alt="4-allsteps" style="zoom:25%;" />
+
 <img src="https://raw.githubusercontent.com/Corona-L/reconstructr/main/screenshots/5-next%20step%20screen.jpg" alt="5-next step screen" style="zoom:25%;" />
 
 <img src="https://raw.githubusercontent.com/Corona-L/reconstructr/main/screenshots/6-step%20details.jpg" alt="6-step details" style="zoom:25%;" />
-
-
 
 
 
