@@ -9,6 +9,7 @@ import SignUp from './Authentication/SignUp';
 import SignIn from './Authentication/SignIn';
 import StepDetail from './StepDetail';
 
+// TODO: FIX. header title is not in the center
 const MainStack = createStackNavigator();
 const options = {
   headerStyle: { backgroundColor: '#041E34' },

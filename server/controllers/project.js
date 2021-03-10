@@ -18,7 +18,7 @@ exports.getProjects = async (req, res) => {
   try {
     const { id } = req.params;
     const projects = await db.project.findAll({
-      attributes: ['projectname', 'id', 'userId'],
+      attributes: ['projectname', 'id', 'userId', 'createdAt'],
       where: {userId: id}
     });
     res.status = 200;

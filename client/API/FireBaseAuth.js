@@ -3,6 +3,9 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import { Alert } from 'react-native';
 
+// TODO: add real authentication. user logs in once and when on home screen there is an automatic check if user is already logged in or not.
+// check home.js line 123. I think error is there and launchscree line 15
+
 export async function registration (email, password, lastName, firstName) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);

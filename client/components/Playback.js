@@ -7,15 +7,15 @@ export default function Playback ({ audiourl }) {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const source = audiourl;
+  // TODO: make actual audio url work. ATM it breaks the app
+  // const source = audiourl;
 
   async function toggleSound () {
     try {
       if (!isPlaying) {
         setIsPlaying(true);
-        // const { sound } = await Audio.Sound.createAsync(require('../assets/Kalimba.mp3'));
-        const { sound } = await Audio.Sound.createAsync(source, initialStatus = {}, downloadFirst = false);
-
+        const { sound } = await Audio.Sound.createAsync(require('../assets/Kalimba.mp3'));
+        // const { sound } = await Audio.Sound.createAsync(source, initialStatus = {}, downloadFirst = false);
         setSound(sound);
         await sound.playAsync();
       } else {
@@ -37,7 +37,6 @@ export default function Playback ({ audiourl }) {
   }, [sound]);
 
 
-
   return (
     <View style={styles.controls}>
       <TouchableOpacity style={styles.control} onPress={toggleSound}>
@@ -53,7 +52,6 @@ export default function Playback ({ audiourl }) {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
     padding: 10,
@@ -68,11 +66,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     marginBottom: '5%',
-    // opacity: 0.5,
-
   },
   control: {
     margin: 17,
-
   }
 });

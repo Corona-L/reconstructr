@@ -1,6 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, Text, FlatList, ImageBackground, Alert } from 'react-native';
-import { Card } from 'react-native-elements';
+import { View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  ImageBackground,
+  Alert,
+  Dimensions,
+  Image
+} from 'react-native';
 import { ModalContext } from '../store/ModalState';
 import AddFolderModal from './AddFolderModal';
 import {getProjects, addProjectName } from '../API/DatabaseMethods';
@@ -11,15 +19,19 @@ export default function Home ({ navigation, route }) {
   const { toggleModal } = useContext(ModalContext);
   const userId = route.params.id;
 
+
+  // gets all projects from backend
   useEffect(() => {
     getProjects(userId)
       .then(result => Object.values(result).flat())
       .then(projects => setProjectNames(projects));
   }, []);
 
+  // adds a folder to the backend, saved with userid so it can traced back to right user
   const addFolder = async () => {
     if (!inputValue.length) return Alert.alert('Please enter a project name');
     await addProjectName(userId, inputValue);
+    // updates the projects list so changes are immediately shown on screen
     getProjects(userId)
       .then(result => Object.values(result).flat())
       .then(projects => setProjectNames(projects));
@@ -27,9 +39,9 @@ export default function Home ({ navigation, route }) {
     toggleModal();
   };
 
-
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
+      {/* flatlist to generate individual card components  */}
       <FlatList
         horizontal={false}
         style={styles.container}
@@ -39,25 +51,29 @@ export default function Home ({ navigation, route }) {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) =>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProjectFolder', { item })}>
-            <Card>
+            <View style={styles.imageCard}>
+              <View style = {styles.imageBox}>
+                <Image source={require('../assets/images/button.png')} style = {styles.ImagesStyle} />
+              </View>
               <Text style={[styles.buttonText]}>{item.projectname}</Text>
-            </Card>
+            </View>
+            <Text style={{alignSelf: 'flex-end', marginBottom: '15%'}}>{item.createdAt.slice(0, 10)}</Text>
           </TouchableOpacity>
         }>
       </FlatList>
 
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: '#FFDE59', height: 60 }]}
+        style={[styles.button, { backgroundColor: '#FFDE59', height: 70, alignItems: 'center' }]}
         onPress={toggleModal}>
-        <Text style={[styles.buttonText, { textAlign: 'center' }]}>+ Add New </Text>
+        <Text style={[styles.buttonText, { alignItems: 'flex-start' }]}>+ Add New </Text>
       </TouchableOpacity>
-
+      {/* TODO: make button and layout of model nicer */}
       <AddFolderModal value={inputValue} setInputValue={setInputValue} addFolder={addFolder} />
     </ImageBackground>
   );
 }
 
-// const { width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     marginTop: 15,
@@ -72,19 +88,34 @@ const styles = StyleSheet.create({
   text: {
     padding: 50,
     color: 'white',
+    fontFamily: 'monospace',
   },
   button: {
     justifyContent: 'center',
-    height: 85,
+    height: height/7,
     width: 320,
     padding: 17,
-    borderRadius: 15,
-    marginBottom: 15,
-    backgroundColor: 'white',
+    paddingTop: 5,
+    borderRadius: 5,
+    marginBottom: 12,
+    backgroundColor: '#A6A6A6',
+    borderColor: 'black',
+    borderWidth: 1,
   },
   buttonText: {
     fontWeight: 'bold',
     color: '#342F1E',
+    fontSize: 20,
+  },
+  imageCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  ImagesStyle: {
+    marginTop: 60,
+    height: 80,
+    width: 80,
   }
 });
 

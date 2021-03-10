@@ -38,7 +38,6 @@ export default function SignIn ({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Sign in to your account:</Text>
-
       <TextInput
         style={styles.formInput}
         placeholder='Enter your email'

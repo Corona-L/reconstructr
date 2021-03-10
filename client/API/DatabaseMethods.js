@@ -39,6 +39,7 @@ export const addStep = (newStep) =>
     .catch(err => console.log(err));
 
 
+// TODO: fix/implement
 export const addAudio = (stepId, audioUrl) =>
   fetch(`${baseUrl}/project/${stepId}`, {
     method: 'POST',
@@ -51,6 +52,7 @@ export const addAudio = (stepId, audioUrl) =>
 
 
 // users signIn. Is going to be handled by Firebase later on
+// at the moment it just checks if email exists
 export const signIn = (email) =>
   fetch(`${baseUrl}/user/${email}`)
     .then(res => res.status <= 400 ? res : Promise.reject())
@@ -69,7 +71,7 @@ export const registration = (newUser) =>
     .catch(err => console.log(err));
 
 
-
+// Tried to use firebase real time storage.
 // export async function saveFoldertoDB (projectName) {
 //   const database = firebase.database();
 //   try {
@@ -93,37 +95,7 @@ export const registration = (newUser) =>
 //   }
 // }
 
-// export async function getAllDetails () {
 
-// }
-
-// export async function savetoDB (id, step, imageUrl, audioUrl, description) {
-//   const database = firebase.database();
-//   try {
-//     await database.ref('users/projects' + id).push({
-//       step: step,
-//       imageUrl: imageUrl,
-//       description: description,
-//       audioUrl: audioUrl
-//     });
-//     return console.log('success');
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-// // TODO: finish logic
-// // export async function saveAudiotoDB (id, step, audioUrl) {
-// //   // const database = firebase.database();
-// //   try {
-// //     // await database.ref('users/projects' + id + step).set({
-// //     //   audioUrl: audioUrl
-// //     // });
-// //     return Alert.alert('Audio saved');
-// //   } catch (error) {
-// //     console.log(error);
-// //   }
-// // }
 
 
 

@@ -12,6 +12,8 @@ import {
 
 
 export default function Loading ({ navigation }) {
+  // TODO: FIX.
+  //checks firebase if user is already logged in or not
   // useEffect(() => {
   //   firebase.auth().onAuthStateChanged((user) => {
   //     if (user) {

@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import 'firebase/storage';
 
-
+// upload to firebase storage
 export async function uploadImage (uri, folderName, userUID,) {
   const blob = await new Promise((resolve) => {
     const xhr = new XMLHttpRequest();
@@ -39,7 +39,6 @@ export async function uploadAudio (uri, folderName, userUID,) {
     .ref()
     .child(`${folderName}/${userUID}.m4a`);
 
-  // let snapshot = await ref.put(blob);
   let snapshot = await ref.put(blob, {
     contentType: 'audio/m4a',
   });

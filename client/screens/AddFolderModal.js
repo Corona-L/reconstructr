@@ -1,7 +1,14 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Modal, TextInput, Button, Dimensions } from 'react-native';
+import { View,
+  StyleSheet,
+  Modal,
+  TextInput,
+  Button,
+  Dimensions
+} from 'react-native';
 import { ModalContext } from '../store/ModalState';
 
+// TODO: make it look nicer
 export default function AddFolderModal ({ inputValue, setInputValue, addFolder}) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);

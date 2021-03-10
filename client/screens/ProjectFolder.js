@@ -1,19 +1,39 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { StyleSheet, Image, ImageBackground, TouchableOpacity, View, Text, FlatList, Dimensions, Switch  } from 'react-native';
+import { StyleSheet,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+  Switch
+} from 'react-native';
 import AddStepModal from './AddStepModal';
 import {ModalContext} from '../store/ModalState';
 import {getAllSteps } from '../API/DatabaseMethods';
 
+// TODO: add check box under each step. maybe save an ischecked value in database and write function to keep state even if user leaves screen
 
 export default function ProjectFolder ({ navigation, route }) {
   const [allSteps, setAllSteps] = useState([]);
   const projectId = route.params.item.id;
   const [isEnabled, setIsEnabled] = useState(false);
   const title = route.params.item.projectname;
+  // create step number for database
   const stepNum = allSteps.length === 0 ? 0 : allSteps[allSteps.length-1].stepnum;
 
+  useEffect(() => {
+    getAllSteps(projectId)
+      .then(result => Object.values(result).flat())
+      .then(steps => setAllSteps(steps));
+  }, []);
+
+  // global toggle function
+  const {toggleModal} = useContext(ModalContext);
 
 
+  // sorting function
   const toggleSwitch = () => {
     if (isEnabled === false) {
       const newstep = allSteps.slice().sort((a, b) => b.stepnum-a.stepnum);
@@ -25,17 +45,6 @@ export default function ProjectFolder ({ navigation, route }) {
     setIsEnabled(previousState => !previousState);
   };
 
-
-
-  useEffect(() => {
-    getAllSteps(projectId)
-      .then(result => Object.values(result).flat())
-      .then(steps => setAllSteps(steps));
-  }, []);
-
-
-  // global toggle function
-  const {toggleModal} = useContext(ModalContext);
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
@@ -108,13 +117,13 @@ const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 10,
-    padding: 3,
+    padding: 4,
     color: 'white',
     fontSize: 15,
     alignSelf: 'center',
     fontWeight: 'bold',
-    fontFamily: 'monospace'
-
+    fontFamily: 'monospace',
+    textAlign: 'center'
   },
   button: {
     justifyContent: 'center',

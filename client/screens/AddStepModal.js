@@ -1,8 +1,14 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Modal, Text, ImageBackground } from 'react-native';
+import { View,
+  StyleSheet,
+  Modal,
+  Text,
+  ImageBackground
+} from 'react-native';
 import UseCamera from '../components/CameraImagePicker';
 import { ModalContext } from '../store/ModalState';
 
+// model that opens up and prompts you to take a picture
 export default function AddStepModal ({ projectId, title,  setAllSteps, stepNum }) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);
@@ -27,7 +33,6 @@ export default function AddStepModal ({ projectId, title,  setAllSteps, stepNum 
   );
 }
 
-// const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   image: {
     flex: 1,
@@ -51,5 +56,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingBottom: 30,
   },
-
 });

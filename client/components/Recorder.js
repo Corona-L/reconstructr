@@ -4,10 +4,8 @@ import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-// import {GlobalContext} from '../store/GlobalState';
 
 export default function Recorder ({ saveAudio }) {
-  // const {saveRecording} = useContext(GlobalContext);
   const [recording, setRecording] = useState();
   const [recordingUri, setRecordingUri] = useState(null);
 
@@ -38,10 +36,10 @@ export default function Recorder ({ saveAudio }) {
     setRecordingUri(uri);
   }
 
+  // save uri first. Only when user confirms will it be uploaded to firebase
   const saveUri = () => {
     console.log(recordingUri);
     saveAudio(recordingUri);
-
   };
 
   const deleteCurrentAudio = () => {
@@ -54,7 +52,6 @@ export default function Recorder ({ saveAudio }) {
       <TouchableOpacity style={styles.control} onPress={() => !recording ? startRecording() : stopRecording()}>
         {!recording ? (
           <Fontisto name="record" size={30} color="red" />
-
         ) : (
           <Ionicons name='pause-circle' size={45} color='#444' />
         )}
@@ -81,7 +78,7 @@ const styles = StyleSheet.create({
     marginLeft: '15%',
     width: '70%',
     borderRadius: 5,
-    height: '10%',
+    height: '13%',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
