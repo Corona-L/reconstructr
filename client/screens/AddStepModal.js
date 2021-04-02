@@ -8,7 +8,6 @@ import { View,
 import UseCamera from '../components/CameraImagePicker';
 import { ModalContext } from '../store/ModalState';
 
-// model that opens up and prompts you to take a picture
 export default function AddStepModal ({ projectId, title,  setAllSteps, stepNum }) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);

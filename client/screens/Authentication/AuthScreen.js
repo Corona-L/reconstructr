@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function AuthScreen ({navigation}) {
+export default function AuthScreen({ navigation }) {
   return (
     <View style={styles.background}>
       <View style={styles.titleContainer}>

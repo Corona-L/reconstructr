@@ -1,27 +1,49 @@
 {
   "env": {
-      "node": true,
-      "browser": true,
-      "es6": true
+    "node": true,
+    "browser": true,
+    "es6": true
   },
   "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-
-  "plugins": ["react"],
-
-
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react"
+  ],
   "rules": {
-    "indent": ["error", 2],
+    "indent": [
+      "error",
+      2
+    ],
     "keyword-spacing": "error",
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
     "no-undef": 0,
     "no-unsued-vars": 0,
-    "quotes": ["error", "single"],
+    "quotes": [
+      "error",
+      "single"
+    ],
     "react/prop-types": 0,
     "react/display-name": 0,
-    "semi": ["error", "always"],
+    "semi": [
+      "error",
+      "always"
+    ],
     "space-before-blocks": "error",
-    "space-before-function-paren": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    // "space-before-function-paren": "error",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ]
   }
 }

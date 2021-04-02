@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-// import {signIn} from '../../API/FireBaseAuth';
-import {signIn} from '../../API/DatabaseMethods';
+import { signIn } from '../../API/DatabaseMethods';
 
-export default function SignIn ({ navigation }) {
+export default function SignIn({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,10 +28,8 @@ export default function SignIn ({ navigation }) {
       const name = user.username;
       setEmail('');
       setPassword('');
-      navigation.navigate('Home', { id, name});
-
+      navigation.navigate('Home', { id, name });
     }
-
   };
 
   return (
@@ -75,7 +72,7 @@ const styles = StyleSheet.create({
     margin: '2%',
   },
   buttonText: {
-    fontSize:20,
+    fontSize: 20,
     color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
@@ -90,9 +87,9 @@ const styles = StyleSheet.create({
   formInput: {
     width: 300,
     color: 'white',
-    fontSize:18,
+    fontSize: 18,
     borderWidth: 1,
-    borderColor:'#FFDE59',
+    borderColor: '#FFDE59',
     padding: 10,
     margin: 5,
   },

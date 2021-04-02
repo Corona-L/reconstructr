@@ -3,14 +3,14 @@ import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 
-export default function Playback ({ audiourl }) {
+export default function Playback({ audiourl }) {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // TODO: make actual audio url work. ATM it breaks the app
+  // TODO: make actual audio url work.
   // const source = audiourl;
 
-  async function toggleSound () {
+  async function toggleSound() {
     try {
       if (!isPlaying) {
         setIsPlaying(true);
@@ -32,7 +32,8 @@ export default function Playback ({ audiourl }) {
     return sound
       ? () => {
         console.log('Unloading Sound');
-        sound.unloadAsync(); }
+        sound.unloadAsync();
+      }
       : undefined;
   }, [sound]);
 

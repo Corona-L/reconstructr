@@ -1,10 +1,8 @@
-// // @refresh reset
 import 'react-native-gesture-handler';
 import React from 'react';
 import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// Firebase
 import * as firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/storage';
@@ -21,7 +19,7 @@ const RootStack = createStackNavigator();
 LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 
 export default function App () {
-  // Initialize Firebase
+
   if (!firebase.apps.length) {
     console.log('Connected with Firebase');
     firebase.initializeApp(apiKeys.firebaseConfig);

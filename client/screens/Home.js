@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View,
+import {
+  View,
   StyleSheet,
   TouchableOpacity,
   Text,
@@ -11,27 +12,23 @@ import { View,
 } from 'react-native';
 import { ModalContext } from '../store/ModalState';
 import AddFolderModal from './AddFolderModal';
-import {getProjects, addProjectName } from '../API/DatabaseMethods';
+import { getProjects, addProjectName } from '../API/DatabaseMethods';
 
-export default function Home ({ navigation, route }) {
+export default function Home({ navigation, route }) {
   const [projectNames, setProjectNames] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const { toggleModal } = useContext(ModalContext);
   const userId = route.params.id;
 
-
-  // gets all projects from backend
   useEffect(() => {
     getProjects(userId)
       .then(result => Object.values(result).flat())
       .then(projects => setProjectNames(projects));
   }, []);
 
-  // adds a folder to the backend, saved with userid so it can traced back to right user
   const addFolder = async () => {
     if (!inputValue.length) return Alert.alert('Please enter a project name');
     await addProjectName(userId, inputValue);
-    // updates the projects list so changes are immediately shown on screen
     getProjects(userId)
       .then(result => Object.values(result).flat())
       .then(projects => setProjectNames(projects));
@@ -41,7 +38,7 @@ export default function Home ({ navigation, route }) {
 
   return (
     <ImageBackground source={require('../assets/Background.png')} style={styles.image}>
-      {/* flatlist to generate individual card components  */}
+
       <FlatList
         horizontal={false}
         style={styles.container}
@@ -52,12 +49,12 @@ export default function Home ({ navigation, route }) {
         renderItem={({ item }) =>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProjectFolder', { item })}>
             <View style={styles.imageCard}>
-              <View style = {styles.imageBox}>
-                <Image source={require('../assets/images/button.png')} style = {styles.ImagesStyle} />
+              <View style={styles.imageBox}>
+                <Image source={require('../assets/images/button.png')} style={styles.ImagesStyle} />
               </View>
               <Text style={[styles.buttonText]}>{item.projectname}</Text>
             </View>
-            <Text style={{alignSelf: 'flex-end', marginBottom: '15%'}}>{item.createdAt.slice(0, 10)}</Text>
+            <Text style={{ alignSelf: 'flex-end', marginBottom: '15%' }}>{item.createdAt.slice(0, 10)}</Text>
           </TouchableOpacity>
         }>
       </FlatList>
@@ -67,7 +64,6 @@ export default function Home ({ navigation, route }) {
         onPress={toggleModal}>
         <Text style={[styles.buttonText, { alignItems: 'flex-start' }]}>+ Add New </Text>
       </TouchableOpacity>
-      {/* TODO: make button and layout of model nicer */}
       <AddFolderModal value={inputValue} setInputValue={setInputValue} addFolder={addFolder} />
     </ImageBackground>
   );
@@ -92,7 +88,7 @@ const styles = StyleSheet.create({
   },
   button: {
     justifyContent: 'center',
-    height: height/7,
+    height: height / 7,
     width: 320,
     padding: 17,
     paddingTop: 5,

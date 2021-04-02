@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity, Modal, ScrollView} from 'react-native';
-import {ModalContext} from '../store/ModalState';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { ModalContext } from '../store/ModalState';
 import Playback from '../components/Playback';
 import Recorder from '../components/Recorder';
 // import { uploadAudio } from '../API/StorageMethods';
 // import { saveAudiotoDB } from '../API/DatabaseMethods';
 
-export default function StepDetailModal ({ route }) {
+export default function StepDetailModal({ route }) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);
   // const [audioUri, setAudioUri] = useState(null);
@@ -32,7 +32,7 @@ export default function StepDetailModal ({ route }) {
         <TouchableOpacity onPress={toggleModal}>
           <Image
             style={styles.imageStyle}
-            source={{ uri: route.params.item.imageurl }}/>
+            source={{ uri: route.params.item.imageurl }} />
         </TouchableOpacity>
         <Modal
           visible={modal}
@@ -46,9 +46,9 @@ export default function StepDetailModal ({ route }) {
         </Modal>
         <View style={styles.notesView} >
           <Text style={[styles.notesText, { fontWeight: 'bold', fontSize: 22, color: '#FFDE59' }]}>Notes</Text>
-          {!route.params.item.audiourl ? <Text style={[styles.notesText, {paddingTop: 10, marginLeft: '34%', fontStyle: 'italic'}]}>Add a voice note</Text> : <View/>}
+          {!route.params.item.audiourl ? <Text style={[styles.notesText, { paddingTop: 10, marginLeft: '34%', fontStyle: 'italic' }]}>Add a voice note</Text> : <View />}
         </View>
-        {!route.params.item.audiourl ? <Recorder saveAudio={saveAudio} /> : <Playback audiourl={audiourl}/>}
+        {!route.params.item.audiourl ? <Recorder saveAudio={saveAudio} /> : <Playback audiourl={audiourl} />}
         <View style={styles.descriptionView} >
           {route.params.item.description ? descriptionMessage : emptyDescriptionMessage}
         </View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   imageStyle: {
-    height: height/2.4,
+    height: height / 2.4,
     width: width,
     marginTop: 40,
     borderRadius: 5,

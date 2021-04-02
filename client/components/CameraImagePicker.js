@@ -1,22 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, Dimensions, KeyboardAvoidingView, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  Dimensions,
+  KeyboardAvoidingView,
+  ScrollView
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { ModalContext } from '../store/ModalState';
 import Recorder from '../components/Recorder';
 import { uploadImage, uploadAudio } from '../API/StorageMethods';
 import { addStep } from '../API/DatabaseMethods';
 
-
-// TODO: make it optional to add audio and description -- save empty string instead? add option in step detail to add audio/text later on
-
-export default function UseCamera ({projectId, title, setAllSteps, stepNum}) {
+export default function UseCamera({ projectId, title, setAllSteps, stepNum }) {
   const [imageUri, setImageUri] = useState(null);
   const [audioUri, setAudioUri] = useState(null);
   const [description, setDescription] = useState('');
-  // last stepnum is handed down from project folder
-  const stepnum = stepNum+1;
-
-  // context used for toggle function so it can be reused
+  const stepnum = stepNum + 1;
   const { toggleModal } = useContext(ModalContext);
 
   useEffect(() => {
@@ -30,12 +34,10 @@ export default function UseCamera ({projectId, title, setAllSteps, stepNum}) {
     })();
   }, []);
 
-  // images/audio is being uploaded to firebase first and link is saved in backend
   const addSteptoDB = async () => {
     const imageurl = await uploadImage(imageUri, title, projectId);
     const audiourl = await uploadAudio(audioUri, title, projectId);
-    const result = await addStep({projectId, stepnum, imageurl, audiourl, description});
-    // auto updates the steps in project folder
+    const result = await addStep({ projectId, stepnum, imageurl, audiourl, description });
     setAllSteps(oldSteps => [...oldSteps, result]);
     setDescription('');
     setImageUri(null);
@@ -43,7 +45,6 @@ export default function UseCamera ({projectId, title, setAllSteps, stepNum}) {
     toggleModal();
   };
 
-  // save image first. only when user confirms will it be uploaded to firebase
   const takePicture = async () => {
     let result = await ImagePicker.launchCameraAsync({
       base64: false,
@@ -71,17 +72,16 @@ export default function UseCamera ({projectId, title, setAllSteps, stepNum}) {
         </View>
         <View>
           {imageUri &&
-          <View>
-            <Text style={styles.text} >Save a voice note</Text>
-            <Recorder saveAudio={saveAudio} />
-            {/* TODO: FIX: longer input changes layout of screen and add step button disappears*/}
-            <TextInput multiline={true} clearButtonMode='always' maxLength={400} placeholder="Add a Description"
-              value={description} style={styles.textInput}
-              onChangeText={(value) => {setDescription(value);}} />
-            <TouchableOpacity style={styles.button} onPress={addSteptoDB} >
-              <Text style={styles.buttonText}>Save next step</Text>
-            </TouchableOpacity>
-          </View>
+            <View>
+              <Text style={styles.text} >Save a voice note</Text>
+              <Recorder saveAudio={saveAudio} />
+              <TextInput multiline={true} clearButtonMode='always' maxLength={400} placeholder="Add a Description"
+                value={description} style={styles.textInput}
+                onChangeText={(value) => { setDescription(value); }} />
+              <TouchableOpacity style={styles.button} onPress={addSteptoDB} >
+                <Text style={styles.buttonText}>Save next step</Text>
+              </TouchableOpacity>
+            </View>
           }
         </View>
       </KeyboardAvoidingView>
@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   image: {
-    width: width-10,
-    height: height/2.6,
+    width: width - 10,
+    height: height / 2.6,
     marginBottom: '10%'
   },
   text: {

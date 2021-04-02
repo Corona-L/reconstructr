@@ -5,11 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function Recorder ({ saveAudio }) {
+export default function Recorder({ saveAudio }) {
   const [recording, setRecording] = useState();
   const [recordingUri, setRecordingUri] = useState(null);
 
-  async function startRecording () {
+  async function startRecording() {
     try {
       console.log('Requesting permissions..');
       await Audio.requestPermissionsAsync();
@@ -28,7 +28,7 @@ export default function Recorder ({ saveAudio }) {
     }
   }
 
-  async function stopRecording () {
+  async function stopRecording() {
     console.log('Stopping recording..');
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
@@ -36,7 +36,6 @@ export default function Recorder ({ saveAudio }) {
     setRecordingUri(uri);
   }
 
-  // save uri first. Only when user confirms will it be uploaded to firebase
   const saveUri = () => {
     console.log(recordingUri);
     saveAudio(recordingUri);

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { View,
+import {
+  View,
   StyleSheet,
   Modal,
   TextInput,
@@ -8,8 +9,7 @@ import { View,
 } from 'react-native';
 import { ModalContext } from '../store/ModalState';
 
-// TODO: make it look nicer
-export default function AddFolderModal ({ inputValue, setInputValue, addFolder}) {
+export default function AddFolderModal({ inputValue, setInputValue, addFolder }) {
   const { modal } = useContext(ModalContext);
   const { toggleModal } = useContext(ModalContext);
 
@@ -48,8 +48,7 @@ const styles = StyleSheet.create({
     top: '50%',
     left: '50%',
     elevation: 5,
-    transform: [{ translateX: -(width * 0.4) },
-      { translateY: -90 }],
+    transform: [{ translateX: -(width * 0.4) }, { translateY: -90 }],
     height: 200,
     width: width * 0.8,
     backgroundColor: '#fff',

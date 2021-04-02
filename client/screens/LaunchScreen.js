@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   View,
@@ -11,20 +10,7 @@ import {
 
 
 
-export default function Loading ({ navigation }) {
-  // TODO: FIX.
-  //checks firebase if user is already logged in or not
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigation.replace('Home');
-  //     } else {
-  //       navigation.replace('Start');
-  //     }
-  //   });
-  // }
-  // );
-
+export default function Loading({ navigation }) {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/reconstructR.gif')} style={styles.image} />
